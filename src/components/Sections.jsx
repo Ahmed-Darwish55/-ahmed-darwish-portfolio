@@ -342,6 +342,21 @@ export function Contact() {
     <Section id="contact" phase={9} className="section--scene section--contact">
       <div className="col col--center contact">
         <div className="contact__card">
+          {PROFILE.portrait && (
+            <img
+              className="contact__portrait"
+              src={PROFILE.portrait}
+              alt={t(PROFILE.fullName, lang)}
+              width="112"
+              height="112"
+              loading="lazy"
+              /* until the file is dropped in, show nothing rather than a
+                 broken-image icon in the middle of the card */
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          )}
           <span className="contact__status">
             <i /> {t(UI.contactCta, lang)}
           </span>

@@ -42,10 +42,12 @@
       },
       "bullets": {
         "en": [
+          "Arabawy App: designed the mobile UI/UX, then built the app site and landing page.",
           "Built responsive product interfaces with JavaScript, Sass and jQuery.",
           "Translated design files into pixel-accurate, cross-browser markup."
         ],
         "ar": [
+          "تطبيق عرباوي: صمّمت واجهة وتجربة الموبايل، وبنيت موقع التطبيق وصفحة الهبوط.",
           "بنيت واجهات منتجات متجاوبة بـ JavaScript و Sass و jQuery.",
           "حوّلت ملفات التصميم لكود دقيق يشتغل على كل المتصفحات."
         ]
@@ -64,12 +66,12 @@
       },
       "bullets": {
         "en": [
-          "Taught HTML, CSS, JavaScript and modern framework fundamentals.",
-          "Mentored students through their first production-grade projects."
+          "Taught web development: HTML, CSS, JavaScript, Sass and Bootstrap.",
+          "Taught UI and UX: Figma, Adobe XD and Photoshop."
         ],
         "ar": [
-          "درّست HTML و CSS و JavaScript وأساسيات الفريمووركس الحديثة.",
-          "تابعت الطلاب في أول مشاريعهم بمستوى احترافي."
+          "درّست تطوير الويب: HTML و CSS و JavaScript و Sass و Bootstrap.",
+          "درّست UI و UX: فيجما وأدوبي XD وفوتوشوب."
         ]
       }
     },
@@ -86,10 +88,12 @@
       },
       "bullets": {
         "en": [
+          "Life-Dental e-commerce application: React front-end, UI/UX design and system analysis.",
           "Delivered 15+ client projects: e-commerce, dashboards, landing pages and PWAs.",
           "MEARN-Stack diploma (ITI, 2021–2022) and Web Development track (NTI, 2020)."
         ],
         "ar": [
+          "تطبيق Life-Dental للتجارة الإلكترونية: واجهة React، وتصميم UI/UX، وتحليل النظام.",
           "سلّمت أكتر من ١٥ مشروع: متاجر إلكترونية، لوحات تحكم، صفحات هبوط، و PWA.",
           "دبلومة MEARN من ITI (٢٠٢١–٢٠٢٢) ومسار تطوير الويب من NTI (٢٠٢٠)."
         ]
@@ -108,12 +112,16 @@
       },
       "bullets": {
         "en": [
-          "Built full-stack web applications and GIS tools supporting the firm’s engineering consulting projects.",
-          "Angular and React front-ends, Node.js services and spatial data integration."
+          "Royal Commission for Riyadh, Diplomatic Quarter (RCRC-DQ): developed Explorer+ as a Geo Platform general product.",
+          "Sharqia Development Authority: built the Unified Data Platform, designed and developed its Geo Explorer, and the Survey123 forms feeding it.",
+          "Madinah Development Authority: redesigned the Urban City Observatory dashboard and built a correlation indicator with statistics.js.",
+          "System analyst and UI/UX developer across the dashboards."
         ],
         "ar": [
-          "بنيت تطبيقات ويب فُل ستاك وأدوات GIS تخدم مشاريع الاستشارات الهندسية في الشركة.",
-          "واجهات بأنجولار وريأكت، وخدمات Node.js، وربط البيانات المكانية."
+          "الهيئة الملكية لمدينة الرياض — الحي الدبلوماسي: طوّرت Explorer+ كمنتج جغرافي عام.",
+          "هيئة تطوير الشرقية: بنيت منصة البيانات الموحدة، وصمّمت وطوّرت المتصفّح الجغرافي بتاعها، ونماذج Survey123 اللي بتغذّيها.",
+          "هيئة تطوير المدينة المنورة: أعدت تصميم لوحة المرصد العمراني وبنيت مؤشر ارتباط بـ statistics.js.",
+          "محلّل نظم ومطوّر UI/UX للوحات التحكم."
         ]
       }
     },
@@ -354,6 +362,180 @@
         "en": "Honoured with the Esri Award for Excellence at Esri MENA UC 2026, Riyadh.",
         "ar": "حصلت على جائزة Esri للتميّز في مؤتمر Esri MENA ٢٠٢٦ بالرياض."
       },
+      "image": "./media/case-srd.svg",
+      "placeholder": true
+    },
+    {
+      "id": "landuse",
+      "order": 6,
+      "env": "data",
+      "accent": "#4CC9F0",
+      "period": "Jun — Jul 2025",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "Dashboard",
+        "ar": "لوحة تحكم"
+      },
+      "title": {
+        "en": "Land Use Planning Dashboard",
+        "ar": "لوحة تخطيط استخدامات الأراضي"
+      },
+      "role": {
+        "en": "Systems analyst & UI/UX designer",
+        "ar": "محلّل نظم ومصمّم UI/UX"
+      },
+      "team": true,
+      "context": {
+        "en": "A planning dashboard presenting land use across the Eastern Province.",
+        "ar": "لوحة تخطيط بتعرض استخدامات الأراضي في المنطقة الشرقية."
+      },
+      "did": {
+        "en": [
+          "Worked as systems analyst and UI/UX designer.",
+          "Built dynamic dashboards and interfaces to present land use planning data."
+        ],
+        "ar": [
+          "اشتغلت محلّل نظم ومصمّم UI/UX.",
+          "بنيت لوحات وواجهات ديناميكية لعرض بيانات تخطيط استخدامات الأراضي."
+        ]
+      },
+      "tech": [
+        "Angular",
+        "Dashboards",
+        "System analysis",
+        "UI/UX"
+      ],
+      "image": "./media/case-srd.svg",
+      "placeholder": true
+    },
+    {
+      "id": "environment",
+      "order": 7,
+      "env": "map",
+      "accent": "#17D3A3",
+      "period": "Jul 2025",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "Product family",
+        "ar": "عائلة منتجات"
+      },
+      "title": {
+        "en": "Environmental Products",
+        "ar": "منتجات القطاع البيئي"
+      },
+      "role": {
+        "en": "Designer & front-end developer",
+        "ar": "مصمّم ومطوّر واجهات"
+      },
+      "team": true,
+      "context": {
+        "en": "Five products for the environmental sector, from a public portal to a map atlas.",
+        "ar": "خمس منتجات للقطاع البيئي، من بوابة عامة لأطلس خرائط."
+      },
+      "did": {
+        "en": [
+          "Environment Web Portal — the sector’s public face.",
+          "Mangrove Web Page — a focused page on the mangrove habitat.",
+          "Environmental Statistics Dashboard — indicators at a glance.",
+          "Environmental Geo-Browser — spatial exploration of environmental layers.",
+          "Environmental Map Atlas — a browsable atlas of the sector’s maps."
+        ],
+        "ar": [
+          "بوابة البيئة — الواجهة العامة للقطاع.",
+          "صفحة المانجروف — صفحة مخصصة لموطن المانجروف.",
+          "لوحة الإحصائيات البيئية — المؤشرات في لمحة.",
+          "المتصفّح الجغرافي البيئي — استكشاف مكاني للطبقات البيئية.",
+          "أطلس الخرائط البيئية — أطلس تصفّح لخرائط القطاع."
+        ]
+      },
+      "tech": [
+        "Angular",
+        "Esri JS API",
+        "Dashboards",
+        "UI/UX"
+      ],
+      "image": "./media/case-geo2d.svg",
+      "placeholder": true
+    },
+    {
+      "id": "explorerplus",
+      "order": 8,
+      "env": "map",
+      "accent": "#E8B14C",
+      "period": "2023 — 2024",
+      "org": "iSEC · Royal Commission for Riyadh (RCRC — DQ)",
+      "kind": {
+        "en": "Geo Platform",
+        "ar": "منصة جغرافية"
+      },
+      "title": {
+        "en": "Explorer+ — Diplomatic Quarter",
+        "ar": "‏Explorer+ — الحي الدبلوماسي"
+      },
+      "role": {
+        "en": "GIS developer",
+        "ar": "مطوّر GIS"
+      },
+      "team": true,
+      "context": {
+        "en": "A general-product geo platform for the Royal Commission for Riyadh, Diplomatic Quarter.",
+        "ar": "منصة جغرافية كمنتج عام للهيئة الملكية لمدينة الرياض — الحي الدبلوماسي."
+      },
+      "did": {
+        "en": [
+          "Developed Explorer+ as a Geo Platform general product."
+        ],
+        "ar": [
+          "طوّرت Explorer+ كمنتج جغرافي عام."
+        ]
+      },
+      "tech": [
+        "Esri JS API",
+        "Experience Builder",
+        "Angular"
+      ],
+      "image": "./media/case-geo3d.svg",
+      "placeholder": true
+    },
+    {
+      "id": "madinah",
+      "order": 9,
+      "env": "data",
+      "accent": "#B388FF",
+      "period": "2024",
+      "org": "iSEC · Madinah Development Authority",
+      "kind": {
+        "en": "Dashboard",
+        "ar": "لوحة تحكم"
+      },
+      "title": {
+        "en": "Urban City Observatory",
+        "ar": "مرصد المدينة العمراني"
+      },
+      "role": {
+        "en": "Front-end developer & designer",
+        "ar": "مطوّر واجهات ومصمّم"
+      },
+      "team": true,
+      "context": {
+        "en": "The urban observatory dashboard for the Madinah Development Authority.",
+        "ar": "لوحة المرصد العمراني لهيئة تطوير المدينة المنورة."
+      },
+      "did": {
+        "en": [
+          "Redesigned and developed the Urban City Observatory Dashboard.",
+          "Built a correlation indicator showing the relation between indicators using statistics.js."
+        ],
+        "ar": [
+          "أعدت تصميم وتطوير لوحة المرصد العمراني.",
+          "بنيت مؤشر ارتباط بيعرض العلاقة بين المؤشرات باستخدام statistics.js."
+        ]
+      },
+      "tech": [
+        "Angular",
+        "statistics.js",
+        "Dashboards"
+      ],
       "image": "./media/case-srd.svg",
       "placeholder": true
     }

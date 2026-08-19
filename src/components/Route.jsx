@@ -59,11 +59,12 @@ export default function Route() {
     const docTop = window.scrollY;
     const width = document.documentElement.clientWidth;
 
-    /* The road leaves from the foot of the globe, not its centre, so it
-       reads as setting off from the planet rather than out of its middle. */
-    const hero = document.getElementById('hero');
-    const heroBox = hero?.getBoundingClientRect();
-    const start = heroBox ? heroBox.top + docTop + heroBox.height * 0.82 : 0;
+    /* The road sets off from under the globe on the *second* section (the
+       route section), leaving the hero clear — starting it on the hero put
+       a line across the opening screen before there was any journey. */
+    const second = sections[1] ?? sections[0];
+    const secondBox = second.getBoundingClientRect();
+    const start = secondBox.top + docTop + secondBox.height * 0.82;
 
     const stops = sections
       .map((el, i) => {

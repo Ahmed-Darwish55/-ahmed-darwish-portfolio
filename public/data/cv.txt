@@ -2,26 +2,131 @@ Ahmed Darwish 0501275214
 Ahmed5510-Mac
 Frontend & GIS Developer ahmed.m.darwish9@gmail.com Ahmed Darwish
 Profile
-Seeking a Full-Stack using MEARN in stable company where I can improve my knowledge, skills
-and utilize my efforts to build Frontend web applications using Angular & React.js within the
-boundaries of company's objectives.
+Passionate Front-End & GIS Developer with extensive experience in Angular, React, and Esri
+platforms. Proven track record delivering interactive dashboards and spatial web applications
+for government agencies. Looking to expand expertise in full-stack development using the MERN
+stack.
+
 Work Experiences
-May.2024 -present
-GIS Developer, Front-end Developer & UI UX
-Sharqia Development Authority (SDA), Dammam,Saudia Arabia
+
+May 2024 - present
+GIS Developer, Front-end Developer & UI/UX
+Sharqia Development Authority (SDA), Dammam, Saudi Arabia
+
 2D Geo-Explorer Project
 Worked as UI/UX for the full interface and interactions.
 Developed core GIS features as part of the front-end implementation.
-July- August 3D Geo-Explorer Project
+
+July - August: 3D Geo-Explorer Project
 Designed the 3D interface and user experience components.
 Developed GIS functionalities and 3D map visualizations.
-JAugust
-Urban Photo Library
+
+August: Urban Photo Library
 Designed and developed a 3D map experience to explore and request images across Eastern Province.
-Created a custom widget on Experience Builder to browse categorized urban images interactively
-1 Sep - 15 Sep Experience Builder Enhancements
+Created a custom widget on Experience Builder to browse categorized urban images interactively.
+
+1 Sep - 15 Sep: Experience Builder Enhancements
 Implemented source control system for team collaboration on shared widgets.
 Integrated GSAP animation library into Experience Builder for smooth transitions and effects.
-Oct -Nov SRD Platform (Unified Data Platform)
+
+Oct - Nov: SRD Platform (Unified Data Platform)
 Worked as Angular Front-End Developer and UI/UX Designer.
 Built dynamic dashboards and interfaces to present unified urban indicators.
+
+June 2025 - July 2025: Land Use Planning Dashboard
+Worked as systems analyst and UI/UX Designer.
+Built dynamic dashboards and interfaces to present land use planning data.
+
+July 2025: Environmental Products
+Designed and developed multiple products under the environmental sector:
+Environment Web Portal
+Mangrove Web Page
+Environmental Statistics Dashboard
+Environmental Geo-Browser
+Environmental Map Atlas
+
+Skills at SDA: UX Research, User Interview, UI / Design Ideation, UX Mentoring,
+Angular-React-Esri, Design System, Accessibility Expertise, Prototyping.
+
+Sep 2023 - 2024
+GIS Developer
+ISEC, Al Khobar, Saudi Arabia
+
+Royal Commission for Riyadh | Diplomatic Quarter (RCRC - DQ)
+Developed Explorer+ as a Geo Platform general product.
+
+Sharqia Development Authority (SDA)
+Developed the Unified Data Platform web site to collect all services.
+Developed and designed Geo Explorer for Sharqia Development Authority.
+Developed survey forms linked to the Unified Data Platform web site.
+System Analyst & UI/UX Developer for dashboards.
+
+May: Madinah Development Authority
+Redesigned and developed the Urban City Observatory Dashboard.
+Developed a correlation indicator to display relations between indicators using statistics.js.
+
+Skills at ISEC: HTML/CSS/JS Development, UX/UI Research and Design, Web Design, Trainings,
+ArcGIS Online, Angular, ArcGIS Pro, GSAP animation with Experience Builder,
+React with Experience Builder.
+
+Apr 2020 - Apr 2022
+Full-Stack using MERN
+Freelancer, Cairo, Egypt
+
+Life-Dental E-Commerce Application
+Front-End Developer (React) - UI Design, UX and System Analyst.
+
+Skills: UX Research, User Interview, UI / Design Ideation, HTML/CSS/JS Interaction,
+Wireframing / Prototype, Project Management.
+
+Sep 2020 - present
+Instructor Front-end
+EL-ZERO ACADEMY, Cairo, Egypt
+Instructor for web development (HTML, CSS, JavaScript, Sass, Bootstrap).
+Instructor for UI and UX (Figma, XD, Photoshop).
+
+Sep 2020 - present
+Front-end Developer
+DELTA-SOFT, Cairo, Egypt
+
+Arabawy App
+Application design - UI & UX mobile application.
+Developed the site application and landing page.
+
+Skills: UX Research, User Interview, UI / Design Ideation, HTML/CSS/JS Interaction,
+Wireframing / Prototype, Project Management.
+
+Development Skills
+CSS3, Angular, jQuery, SQL Server, XML, JSON, TypeScript, JavaScript ES6+, React JS,
+C# (fundamental), UI & UX, PWA apps, Node.js, Unit Testing (Jest), WPF, MongoDB,
+Arduino, Docker, Bug.js, API, Sass, Bootstrap, Linux, System Analyst, Robo 3T.
+
+Esri Skills
+ArcGIS Experience Builder, Esri JS API, ArcMap, ArcGIS Pro, ArcGIS Server, Web AppBuilder,
+Portal for ArcGIS, ArcGIS, Survey123, ArcGIS Hub, Leaflet.js, Leaflet SDK.
+
+UI / UX Skills
+Adobe Photoshop, Adobe XD, Reactive Programming, Functional Programming, Trello,
+Azure DevOps, Adobe Illustrator, Git, Blender 3D modeling.
+
+Trainings & Education
+Professional Diploma MERN Stack (Intake 42) - Information Technology Institute (ITI).
+Diploma Web Development using PHP, MySQL, Laravel - National Telecommunication Institute (NTI).
+B.Sc. Computers and Information - Higher Institute for Information Technology (HIMIT).
+
+Courses, Talks & Workshops I Gave
+Esri Courses - online, 2023-2024: Basics of JavaScript Web apps, ArcGIS Online,
+ArcGIS Pro Data Management, GIS Basics.
+MCSD Courses - IT SHEARE 2020: a retired certification path focused on demonstrating
+expertise in designing and developing applications using Microsoft technologies.
+Frontend - Route Academy 2020: a comprehensive Front-End course covering modern frameworks
+and technologies. React, Vue, TypeScript, Tailwind, and real-world interactive web apps.
+Advanced CSS & JavaScript - Elzero Academy 2021: advanced CSS and JavaScript techniques for
+high-performance, dynamic user interfaces, animations, architecture and modern coding patterns.
+Advanced Angular - DevFest (GDG) Nantes 2022: scalable architecture, performance optimization,
+state management, advanced routing, lazy loading, RxJS and enterprise-level patterns.
+UI/UX Workshop - Node Technologies 2024: a UI workshop on the Saudi Unified Design System by
+the Digital Government Authority, applying consistent standards in government digital platforms.
+
+Languages & Extras
+English: technical, conversational. Arabic: native. Driving licence.
