@@ -89,9 +89,15 @@ const vertexShader = /* glsl */ `
   }
 `;
 
+/* uLight = 1 in light mode. The palette is built to glow additively on
+   black, which on paper would wash out to nothing — additive blending
+   only ever adds light. So on light ground the point is darkened and
+   saturated into ink instead: same hue, inverted luminance. The
+   blending mode is switched to match, below. */
 const fragmentShader = /* glsl */ `
   precision mediump float;
   uniform float uOpacity;
+  uniform float uLight;
   varying vec3 vColor;
   varying float vGlow;
 
@@ -99,7 +105,20 @@ const fragmentShader = /* glsl */ `
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
     float a = smoothstep(0.5, 0.08, d);
-    gl_FragColor = vec4(vColor, a * uOpacity * (0.75 + vGlow * 0.5));
+
+    vec3 col = vColor;
+    float alpha = a * uOpacity * (0.75 + vGlow * 0.5);
+
+    if (uLight > 0.5) {
+      // keep the hue, drop the luminance so it reads as ink on paper
+      float lum = dot(col, vec3(0.299, 0.587, 0.114));
+      vec3 hue = col / max(lum, 0.001);
+      col = clamp(hue * 0.34, 0.0, 1.0);
+      // the glow that additive blending gave for free now costs alpha
+      alpha = a * uOpacity * (0.5 + vGlow * 0.35);
+    }
+
+    gl_FragColor = vec4(col, alpha);
   }
 `;
 
@@ -174,9 +193,23 @@ export default function MorphField({ count }) {
       uTurb: { value: 1 },
       uBurst: { value: 0 },
       uOpacity: { value: 0 },
+      uLight: { value: 0 },
     }),
     []
   );
+
+  /* Follow the theme without rebuilding the material: the uniform is
+     read every frame, so writing it is enough. */
+  const theme = useStore((s) => s.theme);
+  useLayoutEffect(() => {
+    uniforms.uLight.value = theme === 'light' ? 1 : 0;
+    const mat = matRef.current;
+    if (!mat) return;
+    /* Additive blending cannot darken, so it can only ever wash out on
+       paper. Normal blending lets the darkened points actually land. */
+    mat.blending = theme === 'light' ? THREE.NormalBlending : THREE.AdditiveBlending;
+    mat.needsUpdate = true;
+  }, [theme, uniforms]);
 
   /* Morph on every phase change. */
   const current = useRef('globe');

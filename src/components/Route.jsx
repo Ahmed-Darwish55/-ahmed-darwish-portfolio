@@ -20,24 +20,34 @@ gsap.registerPlugin(ScrollTrigger);
 const LANES = [0.5, 0.16, 0.82, 0.3, 0.7, 0.12, 0.6, 0.86, 0.24, 0.74, 0.4];
 
 /* The same three stops as the SVG gradient, so a card lights up in the
-   colour the road happens to be where it passes. */
-const STOPS = [
-  [0.0, [232, 177, 76]],
-  [0.55, [34, 179, 214]],
-  [1.0, [23, 211, 163]],
-];
+   colour the road happens to be where it passes. Read from the theme
+   tokens rather than hard-coded, so the outline follows light mode. */
+const STOP_AT = [0, 0.55, 1];
+const STOP_VAR = ['--gold', '--cyan', '--teal'];
 
-function roadColour(t) {
+function readStops() {
+  const cs = getComputedStyle(document.documentElement);
+  return STOP_VAR.map((name) => {
+    const v = cs.getPropertyValue(name).trim();
+    // tokens are hex; fall back to mid-grey if one is ever missing
+    const m = /^#([0-9a-f]{6})$/i.exec(v);
+    if (!m) return [128, 128, 128];
+    const n = parseInt(m[1], 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  });
+}
+
+function roadColour(t, stops) {
   const x = Math.min(1, Math.max(0, t));
-  for (let i = 1; i < STOPS.length; i++) {
-    const [p1, c1] = STOPS[i - 1];
-    const [p2, c2] = STOPS[i];
+  for (let i = 1; i < stops.length; i++) {
+    const p1 = STOP_AT[i - 1];
+    const p2 = STOP_AT[i];
     if (x > p2) continue;
     const k = (x - p1) / (p2 - p1);
-    const mix = c1.map((c, j) => Math.round(c + (c2[j] - c) * k));
+    const mix = stops[i - 1].map((c, j) => Math.round(c + (stops[i][j] - c) * k));
     return `rgb(${mix.join(',')})`;
   }
-  return `rgb(${STOPS[STOPS.length - 1][1].join(',')})`;
+  return `rgb(${stops[stops.length - 1].join(',')})`;
 }
 
 export default function Route() {
@@ -50,6 +60,8 @@ export default function Route() {
   const [geom, setGeom] = useState(null);
   // the globe swaps sides in Arabic, so the road has to be re-measured
   const lang = useStore((s) => s.lang);
+  // the road's colours are theme tokens, so a switch has to re-read them
+  const theme = useStore((s) => s.theme);
 
   /* Measure every section and build a path that weaves between them. */
   const measure = useCallback(() => {
@@ -138,6 +150,7 @@ export default function Route() {
 
     const path = pathRef.current;
     const len = path.getTotalLength();
+    const stops = readStops();
     /* The reveal rides a clip rectangle rather than the stroke's dash
        offset, which leaves strokeDasharray free to carry the dot pattern.
        Trying to do both on one stroke is what kept the line solid. */
@@ -227,7 +240,7 @@ export default function Route() {
           const lit = p.y >= c.top - 40 && p.y <= c.bottom + 40;
           if (lit === c.lit) continue;
           c.lit = lit;
-          if (lit) c.el.style.setProperty('--road', roadColour(v / len));
+          if (lit) c.el.style.setProperty('--road', roadColour(v / len, stops));
           c.el.classList.toggle('is-onroute', lit);
         }
 
@@ -267,7 +280,7 @@ export default function Route() {
         .forEach((el) => el.classList.remove('is-onroute'));
       ctx.revert();
     };
-  }, [geom]);
+  }, [geom, theme]);
 
   if (!geom) return <div className="route-map" ref={wrap} aria-hidden />;
 
@@ -284,10 +297,12 @@ export default function Route() {
         height={geom.height}
       >
         <defs>
+          {/* The road takes its colours from the theme tokens: the bright
+              dark-mode stops are close to invisible on paper. */}
           <linearGradient id="routeGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#E8B14C" />
-            <stop offset="55%" stopColor="#22B3D6" />
-            <stop offset="100%" stopColor="#17D3A3" />
+            <stop offset="0%" stopColor="var(--gold)" />
+            <stop offset="55%" stopColor="var(--cyan)" />
+            <stop offset="100%" stopColor="var(--teal)" />
           </linearGradient>
           {/* The reveal: everything above the tip is shown. Keeping it on a
               clip leaves the stroke's own dasharray free for the dots. */}

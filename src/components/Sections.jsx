@@ -262,9 +262,15 @@ export function Station() {
 
 export function Contact() {
   const lang = useStore((s) => s.lang);
+  const theme = useStore((s) => s.theme);
   const UI = useUI();
   const PROFILE = useProfile();
   const [copied, setCopied] = useState(false);
+
+  /* Two portraits, one per theme. `portrait` alone still works: if only
+     that key is set both themes use it. */
+  const portrait = (theme === 'light' ? PROFILE.portraitLight : PROFILE.portraitDark) || PROFILE.portrait;
+  const fallback = PROFILE.portrait || PROFILE.portraitDark || PROFILE.portraitLight;
 
   const copy = async () => {
     try {
@@ -342,18 +348,27 @@ export function Contact() {
     <Section id="contact" phase={9} className="section--scene section--contact">
       <div className="col col--center contact">
         <div className="contact__card">
-          {PROFILE.portrait && (
+          {portrait && (
             <img
               className="contact__portrait"
-              src={PROFILE.portrait}
+              /* the key forces a fresh <img> on a theme switch, so the
+                 error fallback below is re-evaluated for the new file */
+              key={portrait}
+              src={portrait}
               alt={t(PROFILE.fullName, lang)}
               width="112"
               height="112"
               loading="lazy"
-              /* until the file is dropped in, show nothing rather than a
-                 broken-image icon in the middle of the card */
+              /* Fall back to the other portrait if this theme's file is
+                 missing, and only then give up — a broken-image icon in
+                 the middle of the card is worse than no photo. */
               onError={(e) => {
-                e.currentTarget.style.display = 'none';
+                const img = e.currentTarget;
+                if (fallback && img.src !== new URL(fallback, location.href).href) {
+                  img.src = fallback;
+                  return;
+                }
+                img.style.display = 'none';
               }}
             />
           )}

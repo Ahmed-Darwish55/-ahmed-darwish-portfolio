@@ -1,10 +1,26 @@
 import { useSyncExternalStore } from 'react';
 import { DEFAULT_CONTENT, DEFAULT_SITE } from './site';
 
+/* The visitor's stored choice wins; otherwise follow the OS setting. Read
+   synchronously at module load so the first paint is already correct —
+   deciding this in an effect would flash the wrong theme. */
+function initialTheme() {
+  try {
+    const saved = localStorage.getItem('ad-theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+  } catch {
+    /* private mode: fall through to the system preference */
+  }
+  return typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: light)').matches
+    ? 'light'
+    : 'dark';
+}
+
 /** Reactive slice (rare updates: phase, language, loader). */
 let state = {
   phase: 0,
   lang: 'en',
+  theme: initialTheme(),
   ready: false,
   entered: false,
   progress: 0,
@@ -23,6 +39,20 @@ export function setState(patch) {
   listeners.forEach((l) => l());
 }
 export const getState = () => state;
+
+/** Switch theme, remember the choice, and stamp the root element. */
+export function setTheme(theme) {
+  setState({ theme });
+  try {
+    localStorage.setItem('ad-theme', theme);
+  } catch {
+    /* nothing to do: the theme still applies for this session */
+  }
+  document.documentElement.dataset.theme = theme;
+}
+
+// stamp the initial value before React mounts, so there is no flash
+if (typeof document !== 'undefined') document.documentElement.dataset.theme = state.theme;
 
 const subscribe = (cb) => {
   listeners.add(cb);

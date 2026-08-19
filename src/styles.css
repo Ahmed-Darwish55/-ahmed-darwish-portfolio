@@ -112,6 +112,96 @@
   --glass-sheen: linear-gradient(157deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 46%, rgba(255, 255, 255, 0.06));
   --glass-blur: blur(30px) saturate(180%) brightness(1.05);
   --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 30px 70px -34px rgba(0, 0, 0, 0.95);
+
+  /* --- theme-dependent primitives ---------------------------------
+     Everything below flips in light mode. They exist as tokens so the
+     rules further down never name a raw white or black: a hard-coded
+     rgba(255,255,255,.09) hairline is invisible on a light ground. */
+  --lift: rgba(255, 255, 255, 0.06);   /* a surface raised off the ground */
+  --lift-2: rgba(255, 255, 255, 0.12); /* the same, one step stronger    */
+  --sheen: rgba(255, 255, 255, 0.22);  /* the top edge of a glass panel  */
+  --shadow-1: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  --shadow-2: 0 30px 70px -34px rgba(0, 0, 0, 0.95);
+  --shadow-ink: rgba(0, 0, 0, 0.85);   /* the colour a drop shadow casts */
+  --scrim: rgba(4, 6, 12, 0.72);       /* behind the lightbox / menus    */
+  --label-plate: rgba(6, 10, 18, 0.6); /* the plate behind a globe label */
+  --road-head: #ffffff;                /* the tip riding the drawn road  */
+  --pin-edge: rgba(255, 255, 255, 0.75);
+  --plate: #050810;                    /* an image well before it loads  */
+  --loader-1: #0a1020;
+  --loader-2: #04060c;
+  --solid-1: #0a0e18;                  /* the no-blur fallback plate     */
+  --solid-2: #070a12;
+  --solid-card: rgba(7, 11, 19, 0.94); /* a card with the blur switched off */
+  --accent-shift: #ffffff;             /* which way a filled accent moves on hover */
+  --on-accent: #04060c;                /* ink that sits on a filled accent */
+  --grain-opacity: 0.03;
+  --vignette-edge: rgba(2, 3, 7, 0.88); /* how the page closes at its edges */
+}
+
+/* ==================================================================
+   01b · LIGHT THEME
+   ------------------------------------------------------------------
+   Only the tokens change. The ground becomes paper, the ink becomes
+   near-black, and every raised surface goes from "lighter than the
+   background" to "a tinted card with a real border" — on a light
+   ground, a white overlay is invisible, so lift has to come from
+   tint and shadow instead.
+
+   The accents are darkened rather than reused: teal #17d3a3 on white
+   is around 1.7:1, nowhere near readable. These are the same hues
+   pulled down to carry text.
+   ================================================================== */
+[data-theme='light'] {
+  --bg: #f4f6fb;
+  --sheet: rgba(255, 255, 255, 0.72);
+  --sheet-2: rgba(255, 255, 255, 0.55);
+  --sheet-blur: blur(26px) saturate(140%);
+
+  --ink: #0d1220;
+  --ink-2: #3a4457;
+  --muted: #5d6980;
+  --faint: #6b7688;
+
+  --rule: rgba(13, 18, 32, 0.12);
+  --rule-2: rgba(13, 18, 32, 0.2);
+  --tick: rgba(13, 18, 32, 0.35);
+
+  /* Darkened to stay legible as text on a light ground. These clear 4.5:1
+     against both the page and a white card, so the small mono labels and
+     dates they colour stay readable rather than merely visible. */
+  --teal: #00755b;
+  --gold: #8a5f0d;
+  --cyan: #0d6f94;
+  --violet: #6b46c1;
+  --alert: #c62d4f;
+
+  --lift: rgba(13, 18, 32, 0.04);
+  --lift-2: rgba(13, 18, 32, 0.08);
+  --sheen: rgba(255, 255, 255, 0.9);
+  --shadow-1: 0 16px 34px -22px rgba(13, 18, 32, 0.34);
+  --shadow-2: 0 26px 60px -30px rgba(13, 18, 32, 0.38);
+  /* a soft grey, never black: black shadows on paper look like dirt */
+  --shadow-ink: rgba(13, 18, 32, 0.22);
+  --scrim: rgba(232, 236, 245, 0.82);
+  --label-plate: rgba(255, 255, 255, 0.78);
+  --road-head: #0d1220;
+  --pin-edge: rgba(255, 255, 255, 0.95);
+  --plate: #e6eaf2;
+  --loader-1: #ffffff;
+  --loader-2: #eef1f7;
+  --solid-1: #ffffff;
+  --solid-2: #f7f9fc;
+  --solid-card: rgba(255, 255, 255, 0.97);
+  --accent-shift: #000000;
+  --on-accent: #ffffff;
+  --grain-opacity: 0.016;
+  --vignette-edge: rgba(13, 18, 32, 0.1);
+
+  --glass-tint: rgba(255, 255, 255, 0.55);
+  --glass-sheen: linear-gradient(157deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.3) 46%, rgba(255, 255, 255, 0.6));
+  --glass-blur: blur(30px) saturate(160%) brightness(1.02);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 26px 60px -30px rgba(13, 18, 32, 0.35);
 }
 
 /* ==================================================================
@@ -174,7 +264,7 @@ img {
 
 ::selection {
   background: var(--teal);
-  color: #04060c;
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -196,6 +286,8 @@ img {
   display: block;
 }
 
+/* The two accent washes stay in both themes; only the closing edge
+   changes, since a black vignette on paper reads as a dirty screen. */
 .vignette {
   position: fixed;
   inset: 0;
@@ -204,7 +296,7 @@ img {
   background:
     radial-gradient(120% 80% at 50% 0%, rgba(23, 211, 163, 0.06), transparent 60%),
     radial-gradient(90% 70% at 85% 90%, rgba(232, 177, 76, 0.06), transparent 65%),
-    radial-gradient(140% 120% at 50% 50%, transparent 45%, rgba(2, 3, 7, 0.88) 100%);
+    radial-gradient(140% 120% at 50% 50%, transparent 45%, var(--vignette-edge) 100%);
 }
 
 .grain {
@@ -212,7 +304,7 @@ img {
   inset: -50%;
   z-index: 3;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain 7s steps(6) infinite;
 }
@@ -433,12 +525,12 @@ img {
    directly on the moving particle field */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .sheet::before {
-    background: linear-gradient(180deg, #0a0e18, #070a12 22%, #070a12 78%, #0a0e18);
+    background: linear-gradient(180deg, var(--solid-1), var(--solid-2) 22%, var(--solid-2) 78%, var(--solid-1));
   }
 
   .card,
   .proof__item {
-    background: rgba(12, 17, 28, 0.92);
+    background: var(--solid-card);
   }
 }
 
@@ -450,8 +542,8 @@ img {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
+    linear-gradient(var(--lift) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lift) 1px, transparent 1px);
   background-size: 88px 88px;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 18vh, #000 82%, transparent);
   mask-image: linear-gradient(180deg, transparent, #000 18vh, #000 82%, transparent);
@@ -528,7 +620,7 @@ img {
   border-radius: inherit;
   pointer-events: none;
   padding: 1px;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.04) 34%, transparent 62%, rgba(255, 255, 255, 0.14));
+  background: linear-gradient(150deg, var(--sheen), var(--lift) 34%, transparent 62%, var(--lift-2));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -554,16 +646,16 @@ img {
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 2px solid var(--tone, var(--rule-2));
-  background: var(--glass-sheen), rgba(255, 255, 255, 0.03);
+  background: var(--glass-sheen), var(--lift);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 8px 24px -14px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 0 var(--lift-2) inset, 0 8px 24px -14px var(--shadow-ink);
   transition: background var(--t-mid) var(--ease), border-color var(--t-mid) var(--ease), transform var(--t-mid) var(--ease);
 }
 
 a.card:hover,
 button.card:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--lift-2);
   border-color: var(--rule-2);
   transform: translateY(-2px);
 }
@@ -584,7 +676,7 @@ button.card:hover {
 .btn:not(.btn--primary):hover {
   transform: translateY(-3px);
   border-color: var(--rule-2);
-  background: var(--glass-sheen), rgba(255, 255, 255, 0.07);
+  background: var(--glass-sheen), var(--lift-2);
 }
 
 /* primary: solid teal, dark ink. No gradient — one confident colour. */
@@ -592,16 +684,18 @@ button.card:hover {
 .btn--primary:hover {
   background: var(--teal);
   border-color: var(--teal);
-  color: #03130e;
+  color: var(--on-accent);
   font-weight: 600;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: 0 14px 34px -16px rgba(23, 211, 163, 0.75);
 }
 
+/* Hover lifts the fill away from the page: brighter on dark ground,
+   deeper on light. color-mix does both from the one accent. */
 .btn--primary:hover {
   transform: translateY(-3px);
-  background: #2ae0b3;
+  background: color-mix(in srgb, var(--teal) 88%, var(--accent-shift));
 }
 
 .btn--primary::after { display: none; }
@@ -645,13 +739,13 @@ button.card:hover {
   padding: 9px 15px;
   border-radius: var(--r-xs);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--lift);
   color: var(--ink-2);
   transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
 }
 
 .ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--lift-2);
   color: var(--ink);
   border-color: var(--rule-2);
 }
@@ -667,7 +761,7 @@ button.card:hover {
   z-index: 60;
   display: grid;
   place-items: center;
-  background: radial-gradient(80% 60% at 50% 45%, #0a1020, #04060c 75%);
+  background: radial-gradient(80% 60% at 50% 45%, var(--loader-1), var(--loader-2) 75%);
 }
 
 .loader__inner {
@@ -693,7 +787,7 @@ button.card:hover {
 .loader__bar {
   margin: var(--s-6) 0 var(--s-3);
   height: 2px;
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--lift-2);
   overflow: hidden;
 }
 
@@ -754,7 +848,7 @@ button.card:hover {
   font-family: var(--mono);
   border: 1px solid var(--rule-2);
   border-radius: var(--r-xs);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--lift);
 }
 
 .nav__side {
@@ -775,6 +869,33 @@ button.card:hover {
 .lang-btn:hover {
   border-color: var(--teal);
   background: rgba(23, 211, 163, 0.12);
+}
+
+/* the theme switch, sized to sit beside the language button */
+.theme-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: border-color var(--t-fast), background var(--t-fast), color var(--t-fast);
+}
+
+.theme-btn:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 14%, transparent);
+  color: var(--gold);
+}
+
+/* the icon turns as the theme changes, so the switch feels mechanical */
+.theme-btn svg {
+  transition: transform var(--t-mid) var(--ease);
+}
+
+.theme-btn:hover svg {
+  transform: rotate(35deg);
 }
 
 /* --- section rail (desktop) ---------------------------------------
@@ -825,7 +946,7 @@ button.card:hover {
 .nav__link:hover,
 .nav__link.is-active {
   color: var(--ink);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--lift-2);
 }
 
 .nav__link:hover .nav__label,
@@ -876,26 +997,30 @@ button.card:hover {
   max-height: 76vh;
   object-fit: contain;
   border-radius: var(--r-md);
-  border: 1px solid var(--rule-2);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.95);
 }
 
+/* literal, not --ink-2: the caption sits on the dark backdrop in both themes */
 .lb__fig figcaption {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
   font-size: var(--fs-meta);
-  color: var(--ink-2);
+  color: #b6c1d3;
 }
 
 .lb__fig figcaption em {
   font-style: normal;
   font-family: var(--mono);
   font-size: var(--fs-micro);
-  color: var(--muted);
+  color: #8593a8;
 }
 
+/* The viewer stays a dark room in both themes — a photo is judged
+   against black — so its chrome keeps literal white rather than the
+   themed tokens, which would turn it invisible in light mode. */
 .lb__close,
 .lb__nav {
   position: absolute;
@@ -904,9 +1029,9 @@ button.card:hover {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--rule-2);
+  color: #eef2f9;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   transition: background var(--t-fast), transform var(--t-fast);
@@ -931,10 +1056,11 @@ button.card:hover {
   padding: 6px 10px;
   border: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
   border-radius: var(--r-sm);
-  background: linear-gradient(155deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)), rgba(6, 10, 18, 0.6);
+  /* the label rides the scene, so its plate follows the theme too */
+  background: linear-gradient(155deg, var(--lift-2), var(--lift)), var(--label-plate);
   -webkit-backdrop-filter: blur(14px) saturate(160%);
   backdrop-filter: blur(14px) saturate(160%);
-  box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 12px 30px -18px var(--shadow-ink);
   white-space: nowrap;
   font-family: var(--font);
 }
@@ -1375,7 +1501,7 @@ button.card:hover {
   border-radius: var(--r-md);
   overflow: hidden;
   border: 1px solid var(--rule);
-  background: #050810;
+  background: var(--plate);
   aspect-ratio: 16 / 10;
 }
 
@@ -1495,7 +1621,7 @@ button.card:hover {
 .case__outcome {
   padding: var(--s-3) var(--s-4);
   border-inline-start: 2px solid var(--tone, var(--gold));
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--lift);
   border-radius: 0 var(--r-xs) var(--r-xs) 0;
   font-size: var(--fs-meta);
 }
@@ -1539,7 +1665,7 @@ button.card:hover {
   overflow: hidden;
   border: 1px solid var(--rule);
   aspect-ratio: 4 / 3;
-  background: #050810;
+  background: var(--plate);
   padding: 0;
 }
 
@@ -1566,14 +1692,14 @@ button.card:hover {
   padding: 9px 15px;
   border-radius: var(--r-xs);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--lift);
   color: var(--ink-2);
   position: relative;
   z-index: 3;
   transition: background var(--t-fast), color var(--t-fast);
 }
 
-.stack__toggle:hover { background: rgba(255, 255, 255, 0.08); color: var(--ink); }
+.stack__toggle:hover { background: var(--lift-2); color: var(--ink); }
 
 .stack__layer {
   position: relative;
@@ -1581,7 +1707,7 @@ button.card:hover {
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 3px solid var(--tone);
-  background: rgba(255, 255, 255, 0.022);
+  background: var(--lift);
   display: grid;
   grid-template-columns: auto minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--s-1) var(--s-7);
@@ -1689,17 +1815,17 @@ button.card:hover {
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 2px solid var(--tone);
-  background: var(--glass-sheen), rgba(255, 255, 255, 0.03);
+  background: var(--glass-sheen), var(--lift);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 8px 24px -14px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 0 var(--lift-2) inset, 0 8px 24px -14px var(--shadow-ink);
   color: inherit;
   transition: background var(--t-mid), transform var(--t-mid) var(--ease);
 }
 
 a.proof__item:hover,
 button.proof__item:hover {
-  background: rgba(255, 255, 255, 0.055);
+  background: var(--lift-2);
   transform: translateY(-2px);
 }
 
@@ -1741,7 +1867,7 @@ button.proof__item:hover {
   object-fit: cover;
   object-position: center 22%;
   border: 1px solid var(--rule-2);
-  box-shadow: 0 0 0 4px rgba(23, 211, 163, 0.12), 0 14px 34px -18px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 0 0 4px rgba(23, 211, 163, 0.12), 0 14px 34px -18px var(--shadow-ink);
 }
 
 .contact__status {
@@ -1784,7 +1910,7 @@ button.proof__item:hover {
   padding: 5px 5px 5px var(--s-4);
   border-radius: var(--r-pill);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--lift);
 }
 
 .mailrow__mail {
@@ -1805,11 +1931,11 @@ button.proof__item:hover {
   padding: 7px 15px;
   border-radius: var(--r-pill);
   font-size: 0.78rem;
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--lift-2);
   transition: background var(--t-fast), color var(--t-fast);
 }
 
-.mailrow__copy:hover { background: var(--teal); color: #03130e; }
+.mailrow__copy:hover { background: var(--teal); color: var(--on-accent); }
 
 .contact__actions {
   display: flex;
@@ -1835,7 +1961,7 @@ button.proof__item:hover {
   padding: var(--s-3);
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--lift);
   transition: transform var(--t-mid) var(--ease), border-color var(--t-mid), background var(--t-mid);
 }
 
@@ -1853,7 +1979,7 @@ button.proof__item:hover {
   height: 34px;
   border-radius: var(--r-xs);
   color: var(--tone);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--lift-2);
 }
 
 .social__icon svg { width: 18px; height: 18px; }
@@ -1925,7 +2051,8 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 }
 
 .route-map__ghost {
-  stroke: rgba(255, 255, 255, 0.14);
+  /* the road ahead: a hairline, so it has to invert with the ground */
+  stroke: var(--rule-2);
   stroke-width: 1.6;
   stroke-dasharray: 2 9;
 }
@@ -1939,9 +2066,11 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   filter: drop-shadow(0 0 4px rgba(34, 179, 214, 0.9));
 }
 
-/* the bright tip that runs ahead of the drawn road */
+/* The tip that runs ahead of the drawn road: it reads as a bright spark
+   on dark and as a solid ink dot on paper, so it takes the ink colour
+   rather than a literal white. */
 .route-map__head {
-  fill: #ffffff;
+  fill: var(--road-head);
   opacity: 0;
   filter: drop-shadow(0 0 9px rgba(34, 179, 214, 0.95));
 }
@@ -1967,16 +2096,18 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   height: 30px;
   /* above the ripples: they expand past the pin and would paint over it */
   z-index: 2;
-  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 3px 7px var(--shadow-ink));
 }
 
+/* The pin is outlined in the page ground and holed through to it, so it
+   stays legible whichever way round the theme is. */
 .route-map__glyphBody {
   fill: currentColor;
-  stroke: rgba(255, 255, 255, 0.75);
+  stroke: var(--pin-edge);
   stroke-width: 1.1;
 }
 
-.route-map__glyphEye { fill: #04060c; }
+.route-map__glyphEye { fill: var(--bg); }
 
 /* the water rings that ripple out where the pin lands */
 .route-map__ring {
@@ -2105,14 +2236,14 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   .proof__item {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
-    background: rgba(7, 11, 19, 0.94);
+    background: var(--solid-card);
   }
 
   /* without the blur the sheet must carry legibility on its own */
   .sheet::before {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
-    background: linear-gradient(180deg, rgba(10, 14, 24, 0.96), rgba(7, 10, 18, 0.97) 22%, rgba(7, 10, 18, 0.97) 78%, rgba(10, 14, 24, 0.96));
+    background: linear-gradient(180deg, var(--solid-1), var(--solid-2) 22%, var(--solid-2) 78%, var(--solid-1));
   }
 
   .btn--primary { background: var(--teal); }
@@ -2127,13 +2258,13 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   .proof__item {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: rgba(7, 10, 17, 0.95);
+    background: var(--solid-card);
   }
 
   .sheet::before {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    background: linear-gradient(180deg, rgba(10, 14, 24, 0.97), rgba(7, 10, 18, 0.98) 22%, rgba(7, 10, 18, 0.98) 78%, rgba(10, 14, 24, 0.97));
+    background: linear-gradient(180deg, var(--solid-1), var(--solid-2) 22%, var(--solid-2) 78%, var(--solid-1));
   }
 }
 
@@ -2162,7 +2293,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   font-size: var(--fs-micro);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  box-shadow: 0 18px 44px -22px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 18px 44px -22px var(--shadow-ink);
   transition: transform var(--t-mid) var(--ease), border-color var(--t-mid), background var(--t-mid);
 }
 
@@ -2192,11 +2323,11 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   width: min(440px, 100%);
   display: flex;
   flex-direction: column;
-  background: rgba(7, 10, 18, 0.96);
+  background: var(--solid-card);
   -webkit-backdrop-filter: blur(26px) saturate(150%);
   backdrop-filter: blur(26px) saturate(150%);
   border-inline-start: 1px solid var(--rule-2);
-  box-shadow: -40px 0 90px -40px rgba(0, 0, 0, 0.9);
+  box-shadow: -40px 0 90px -40px var(--shadow-ink);
   transform: translateX(100%);
   visibility: hidden;
   transition: transform var(--t-slow) var(--ease), visibility var(--t-slow);
@@ -2249,7 +2380,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   padding: 7px 12px;
   border-radius: var(--r-pill);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--lift);
   font-size: 0.82rem;
   color: var(--ink-2);
   text-align: start;
@@ -2290,7 +2421,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 2px solid var(--violet);
-  background: rgba(255, 255, 255, 0.025);
+  background: var(--lift);
 }
 
 .ask__card h4 { font-size: 0.95rem; font-weight: 600; line-height: 1.35; }
@@ -2360,7 +2491,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   padding: 11px 15px;
   border-radius: var(--r-pill);
   border: 1px solid var(--rule);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--lift);
   color: var(--ink);
   font: inherit;
   font-size: 0.9rem;
@@ -2376,7 +2507,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  color: #14061f;
+  color: var(--on-accent);
   background: var(--violet);
   transition: opacity var(--t-fast), transform var(--t-fast);
 }

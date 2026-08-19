@@ -230,6 +230,15 @@ export default function JourneyLayer() {
     gsap.to(uniforms.uDim, { value: picked ? 0.2 : 1, duration: 0.5, ease: 'power2.out' });
   }, [picked, uniforms]);
 
+  /* The globe's inner body is what the dotted land is read against: a
+     near-black ball on a dark page, a soft grey one on a light page.
+     Left dark, it would sit on the light page like a hole. */
+  const theme = useStore((s) => s.theme);
+  useEffect(() => {
+    if (bodyMat.current) bodyMat.current.color.set(theme === 'light' ? '#dfe5ef' : '#04070e');
+    atmo.uColor.value.set(theme === 'light' ? '#5A93B8' : '#1F6E9C');
+  }, [theme, atmo]);
+
   useEffect(() => {
     const visible = entered && phase <= 1;
     gsap.to(uniforms.uOpacity, { value: visible ? 1 : 0, duration: 0.8, ease: 'power2.out' });

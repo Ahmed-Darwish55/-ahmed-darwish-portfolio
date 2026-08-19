@@ -27,6 +27,8 @@
     "codepen": "https://codepen.io/ahmed5510-mac",
     "cv": "Ahmed-Darwish-CV.pdf",
     "portrait": "./media/portrait.jpg",
+    "portraitDark": "./media/portrait-dark.jpg",
+    "portraitLight": "./media/portrait-light.jpg",
     "positioning": {
       "en": "Front-End & GIS Developer delivering interactive dashboards and spatial web applications for government agencies.",
       "ar": "مطوّر واجهات و GIS — لوحات تفاعلية وتطبيقات ويب مكانية لجهات حكومية."
