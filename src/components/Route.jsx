@@ -282,10 +282,12 @@ export default function Route() {
             <stop offset="55%" stopColor="#22B3D6" />
             <stop offset="100%" stopColor="#17D3A3" />
           </linearGradient>
-          {/* The drawn line already spends strokeDasharray on its reveal,
-              so the dashes come from a mask instead of the stroke itself. */}
+          {/* The colour rides on top of the dotted ghost, lighting the very
+              same dots. The mask therefore repeats the ghost's own dash
+              pattern exactly — the drawn line cannot carry it itself,
+              since its strokeDasharray is spent on the scroll reveal. */}
           <mask id="routeDashes" maskUnits="userSpaceOnUse">
-            <path d={geom.d} fill="none" stroke="#fff" strokeWidth="8" strokeDasharray="13 11" />
+            <path d={geom.d} fill="none" stroke="#fff" strokeWidth="8" strokeDasharray="2 9" strokeLinecap="round" />
           </mask>
         </defs>
 

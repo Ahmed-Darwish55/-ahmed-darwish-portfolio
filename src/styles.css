@@ -1922,9 +1922,10 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   stroke-dasharray: 2 9;
 }
 
+/* the colour lights the ghost's own dots, so it matches its width */
 .route-map__line {
-  stroke-width: 2.6;
-  filter: drop-shadow(0 0 6px rgba(34, 179, 214, 0.55));
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 6px rgba(34, 179, 214, 0.75));
 }
 
 /* the bright tip that runs ahead of the drawn road */
