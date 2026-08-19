@@ -28,8 +28,8 @@
     "cv": "Ahmed-Darwish-CV.pdf",
     "portrait": "./media/portrait.jpg",
     "positioning": {
-      "en": "I build digital products where maps, data and interfaces meet.",
-      "ar": "ببني منتجات رقمية عند تقاطع الخرائط والبيانات والواجهات."
+      "en": "Front-End & GIS Developer delivering interactive dashboards and spatial web applications for government agencies.",
+      "ar": "مطوّر واجهات و GIS — لوحات تفاعلية وتطبيقات ويب مكانية لجهات حكومية."
     }
   },
   "nav": [
@@ -110,8 +110,8 @@
       "ar": "والبيانات والواجهات."
     },
     "heroBlurb": {
-      "en": "I design and build geospatial platforms for the Eastern Province of Saudi Arabia — 2D and 3D map experiences, urban data dashboards and the interfaces that make them usable. Angular, React, ArcGIS and Three.js. Based in Dammam, originally from Giza.",
-      "ar": "بصمّم وببني منصّات جغرافية للمنطقة الشرقية في السعودية — تجارب خرائط ثنائية وثلاثية الأبعاد، ولوحات بيانات عمرانية، والواجهات اللي بتخليها قابلة للاستخدام. أنجولار وريأكت و ArcGIS و Three.js. مقيم في الدمام، وأصلي من الجيزة."
+      "en": "I design and build geospatial platforms for government agencies in Saudi Arabia — 2D and 3D map experiences, urban data dashboards and the interfaces that make them usable. Angular, React and the Esri platform, now extending into full-stack with the MERN stack. Based in Dammam, originally from Giza.",
+      "ar": "بصمّم وببني منصّات جغرافية لجهات حكومية في السعودية — تجارب خرائط ثنائية وثلاثية الأبعاد، ولوحات بيانات عمرانية، والواجهات اللي بتخليها قابلة للاستخدام. أنجولار وريأكت ومنصة Esri، ودلوقتي بتوسّع ناحية الفُل ستاك بستاك MERN. مقيم في الدمام، وأصلي من الجيزة."
     },
     "journeyTitle": {
       "en": "The route",
@@ -138,16 +138,16 @@
       "ar": "دراسات الحالة"
     },
     "workSub": {
-      "en": "Five geospatial platforms shipped for the Sharqia Development Authority, each a different kind of spatial problem.",
-      "ar": "خمس منصّات جغرافية سُلّمت لهيئة تطوير المنطقة الشرقية، كل واحدة نوع مختلف من المسائل المكانية."
+      "en": "Geospatial platforms shipped for the Sharqia and Madinah development authorities and the Royal Commission for Riyadh — each a different kind of spatial problem.",
+      "ar": "منصّات جغرافية سُلّمت لهيئتَي تطوير الشرقية والمدينة المنورة والهيئة الملكية لمدينة الرياض — كل واحدة نوع مختلف من المسائل المكانية."
     },
     "skillsTitle": {
       "en": "The toolkit",
       "ar": "أدوات الشغل"
     },
     "skillsSub": {
-      "en": "Six years of front-end, three stacks, one obsession with motion.",
-      "ar": "ست سنين فرونت إند، وتلات ستاكات، وهوس واحد بالحركة."
+      "en": "Seven years of front-end, the Esri platform end to end, and one obsession with motion.",
+      "ar": "سبع سنين فرونت إند، ومنصة Esri من أولها لآخرها، وهوس واحد بالحركة."
     },
     "confTitle": {
       "en": "Conferences & stages",
@@ -438,10 +438,10 @@
       }
     },
     {
-      "value": "5",
+      "value": "9",
       "label": {
-        "en": "SDA platforms shipped",
-        "ar": "منصات سُلّمت في SDA"
+        "en": "Platforms shipped",
+        "ar": "منصّة سُلّمت"
       }
     },
     {

@@ -17,8 +17,8 @@
         "ar": "بكالوريوس حاسبات ومعلومات"
       },
       "role": {
-        "en": "Giza, Egypt · Grade: Very Good",
-        "ar": "الجيزة، مصر · تقدير: جيد جدًا"
+        "en": "Higher Institute for Information Technology (HIMIT) · Giza, Egypt",
+        "ar": "المعهد العالي لتكنولوجيا المعلومات (HIMIT) · الجيزة، مصر"
       },
       "bullets": {
         "en": [
@@ -31,7 +31,7 @@
     },
     {
       "station": "giza",
-      "period": "2019 — 2020",
+      "period": "Sep 2020 — Present",
       "org": {
         "en": "Delta-Soft",
         "ar": "دلتا سوفت"
@@ -55,7 +55,7 @@
     },
     {
       "station": "giza",
-      "period": "2020 — 2024",
+      "period": "Sep 2020 — Present",
       "org": {
         "en": "El-Zero Academy",
         "ar": "أكاديمية الزيرو"
@@ -77,7 +77,7 @@
     },
     {
       "station": "giza",
-      "period": "2020 — 2024",
+      "period": "Apr 2020 — Apr 2022",
       "org": {
         "en": "Freelance Full-Stack Developer",
         "ar": "مطوّر فُل ستاك — فريلانس"
@@ -101,7 +101,7 @@
     },
     {
       "station": "dammam",
-      "period": "Sep 2022 — Jul 2023",
+      "period": "Sep 2023 — 2024",
       "org": {
         "en": "Ala Abdulhadi & Khalifa Hawas Consulting Engineering Co. (iSEC / AHCEC)",
         "ar": "شركة علاء عبدالهادي وخليفة هواس للاستشارات الهندسية (iSEC / AHCEC)"
@@ -370,7 +370,7 @@
       "order": 6,
       "env": "data",
       "accent": "#4CC9F0",
-      "period": "Jun — Jul 2025",
+      "period": "Jun 2025 — Jul 2025",
       "org": "Sharqia Development Authority",
       "kind": {
         "en": "Dashboard",
@@ -462,7 +462,7 @@
       "order": 8,
       "env": "map",
       "accent": "#E8B14C",
-      "period": "2023 — 2024",
+      "period": "Sep 2023 — 2024",
       "org": "iSEC · Royal Commission for Riyadh (RCRC — DQ)",
       "kind": {
         "en": "Geo Platform",
@@ -502,7 +502,7 @@
       "order": 9,
       "env": "data",
       "accent": "#B388FF",
-      "period": "2024",
+      "period": "May 2024",
       "org": "iSEC · Madinah Development Authority",
       "kind": {
         "en": "Dashboard",
@@ -926,6 +926,90 @@
       },
       "image": "",
       "link": ""
+    },
+    {
+      "id": "esri-courses",
+      "issuer": "Esri · online",
+      "year": "2023 — 2024",
+      "tone": "#17D3A3",
+      "title": {
+        "en": "Esri Courses — taught",
+        "ar": "كورسات Esri — تدريس"
+      },
+      "note": {
+        "en": "JavaScript web apps, ArcGIS Online, ArcGIS Pro data management, GIS basics.",
+        "ar": "تطبيقات ويب بـ JavaScript، ArcGIS Online، إدارة بيانات ArcGIS Pro، أساسيات GIS."
+      }
+    },
+    {
+      "id": "uiux-workshop",
+      "issuer": "Node Technologies",
+      "year": "2024",
+      "tone": "#B388FF",
+      "title": {
+        "en": "UI/UX Workshop — Saudi Unified Design System",
+        "ar": "ورشة UI/UX — النظام السعودي الموحّد للتصميم"
+      },
+      "note": {
+        "en": "On the Digital Government Authority’s design system for government platforms.",
+        "ar": "عن نظام التصميم بتاع هيئة الحكومة الرقمية لمنصّات الجهات الحكومية."
+      }
+    },
+    {
+      "id": "advanced-angular",
+      "issuer": "DevFest (GDG) Nantes",
+      "year": "2022",
+      "tone": "#4CC9F0",
+      "title": {
+        "en": "Advanced Angular — taught",
+        "ar": "أنجولار متقدّم — تدريس"
+      },
+      "note": {
+        "en": "Scalable architecture, performance, state, routing, lazy loading and RxJS.",
+        "ar": "معمارية قابلة للتوسّع، والأداء، وإدارة الحالة، والتوجيه، والتحميل الكسول و RxJS."
+      }
+    },
+    {
+      "id": "advanced-css-js",
+      "issuer": "Elzero Academy",
+      "year": "2021",
+      "tone": "#E8B14C",
+      "title": {
+        "en": "Advanced CSS & JavaScript — taught",
+        "ar": "CSS و JavaScript متقدّم — تدريس"
+      },
+      "note": {
+        "en": "Animations, architecture and modern patterns for dynamic interfaces.",
+        "ar": "أنيميشن ومعمارية وأنماط حديثة للواجهات الديناميكية."
+      }
+    },
+    {
+      "id": "frontend-route",
+      "issuer": "Route Academy",
+      "year": "2020",
+      "tone": "#4CC9F0",
+      "title": {
+        "en": "Front-End Course — taught",
+        "ar": "كورس الفرونت إند — تدريس"
+      },
+      "note": {
+        "en": "React, Vue, TypeScript and Tailwind, building real-world interactive apps.",
+        "ar": "ريأكت وفيو وتايب سكريبت وتيلويند، وبناء تطبيقات تفاعلية حقيقية."
+      }
+    },
+    {
+      "id": "mcsd",
+      "issuer": "IT Share",
+      "year": "2020",
+      "tone": "#B388FF",
+      "title": {
+        "en": "MCSD Courses — taught",
+        "ar": "كورسات MCSD — تدريس"
+      },
+      "note": {
+        "en": "Designing and developing applications on Microsoft technologies.",
+        "ar": "تصميم وتطوير التطبيقات على تقنيات مايكروسوفت."
+      }
     }
   ],
   "assistant": {
