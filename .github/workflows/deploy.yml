@@ -5,17 +5,18 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Publishes dist/ to the gh-pages branch. This route only needs contents:write
+# and the token Actions provides automatically — unlike actions/configure-pages,
+# it does not fail when Pages has never been enabled in the repo settings.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,18 +30,10 @@ jobs:
 
       - run: npm run build
 
-      - uses: actions/configure-pages@v5
+      # Jekyll would otherwise skip Vite's _-prefixed asset files.
+      - run: touch dist/.nojekyll
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
