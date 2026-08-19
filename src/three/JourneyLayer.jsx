@@ -72,6 +72,7 @@ function Marker({ station, lang, uOpacity, side, state }) {
   const worldPos = useRef(new THREE.Vector3());
   const camDir = useRef(new THREE.Vector3());
   const halo = useRef();
+  const haloPivot = useRef();
   const haloU = useMemo(
     () => ({ uColor: { value: new THREE.Color(station.color) }, uOpacity: { value: 0 } }),
     [station.color]
@@ -95,6 +96,13 @@ function Marker({ station, lang, uOpacity, side, state }) {
     if (!group.current) return;
     group.current.position.copy(pos);
     group.current.lookAt(pos.clone().multiplyScalar(2));
+    // the cap is built around +Y, so swing that axis onto the station
+    if (haloPivot.current) {
+      haloPivot.current.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        pos.clone().normalize()
+      );
+    }
   }, [pos]);
 
   useFrame((frame) => {
@@ -109,7 +117,9 @@ function Marker({ station, lang, uOpacity, side, state }) {
     }
     if (halo.current) {
       const h = Math.max(0, E - 1) / 0.75; // 0 → 1 as the city becomes active
-      const s = 0.55 + h * 0.5 + Math.sin(time * 2) * 0.03 * h;
+      // the cap hugs the globe, so it only breathes — scaling it in 3D would
+      // lift it off the surface and reintroduce the clipping.
+      const s = 0.85 + h * 0.15 + Math.sin(time * 2) * 0.02 * h;
       halo.current.scale.set(s, s, s);
       haloU.uOpacity.value = h * uOpacity.value;
       halo.current.visible = h > 0.02;
@@ -128,49 +138,63 @@ function Marker({ station, lang, uOpacity, side, state }) {
   });
 
   return (
-    <group ref={group}>
-      <mesh>
-        <sphereGeometry args={[0.035, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.95} />
-      </mesh>
-      {/* soft glow + outline that blooms over the country when it is picked */}
-      <mesh ref={halo} visible={false}>
-        <circleGeometry args={[0.62, 64]} />
-        <shaderMaterial
-          transparent
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-          uniforms={haloU}
-          vertexShader={`varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`}
-          fragmentShader={`precision mediump float; uniform vec3 uColor; uniform float uOpacity; varying vec2 vUv;
-            void main() {
-              float d = length(vUv - 0.5) * 2.0;
-              float core = pow(max(0.0, 1.0 - d), 2.6) * 0.28;
-              float ring = smoothstep(0.62, 0.84, d) * smoothstep(1.0, 0.84, d) * 0.62;
-              gl_FragColor = vec4(uColor, (core + ring) * uOpacity);
-            }`}
-        />
-      </mesh>
-      {[ring1, ring2].map((r, i) => (
-        <mesh key={i} ref={r}>
-          <ringGeometry args={[0.05, 0.062, 48]} />
-          <meshBasicMaterial
-            color={color}
+    <>
+      {/* Soft glow that blooms over the country when it is picked.
+          A flat disc tangent to the marker sank into the curved globe and got
+          sliced by the body mesh, so this is a spherical cap centred on the
+          globe (hence outside the marker group, which is offset to the
+          surface) and aimed at the station, with depth testing off. */}
+      <group ref={haloPivot}>
+        <mesh ref={halo} visible={false} renderOrder={3}>
+          <sphereGeometry args={[GLOBE_RADIUS + 0.012, 48, 48, 0, Math.PI * 2, 0, 0.42]} />
+          <shaderMaterial
             transparent
-            opacity={0}
+            depthWrite={false}
+            depthTest={false}
             side={THREE.DoubleSide}
             blending={THREE.AdditiveBlending}
-            depthWrite={false}
+            uniforms={haloU}
+            vertexShader={`varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`}
+            fragmentShader={`precision mediump float; uniform vec3 uColor; uniform float uOpacity; varying vec2 vUv;
+            void main() {
+              // on a sphere cap, v runs 1 at the pole → 0 at the rim, so the
+              // normalised distance from the marker is its complement.
+              float d = clamp(1.0 - vUv.y, 0.0, 1.0);
+              float core = pow(max(0.0, 1.0 - d), 2.6) * 0.28;
+              float ring = smoothstep(0.62, 0.84, d) * smoothstep(1.0, 0.84, d) * 0.62;
+              float fade = smoothstep(1.0, 0.92, d);
+              gl_FragColor = vec4(uColor, (core + ring) * fade * uOpacity);
+            }`}
           />
         </mesh>
-      ))}
-      <Html center distanceFactor={7} zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
-        <div ref={label} className={`globe-label globe-label--${side}`} style={{ '--c': station.color }}>
-          <span className="globe-label__city">{t(station.city, lang)}</span>
-          <span className="globe-label__meta">{station.years}</span>
-        </div>
-      </Html>
-    </group>
+      </group>
+
+      <group ref={group}>
+        <mesh>
+          <sphereGeometry args={[0.035, 16, 16]} />
+          <meshBasicMaterial color={color} transparent opacity={0.95} />
+        </mesh>
+        {[ring1, ring2].map((r, i) => (
+          <mesh key={i} ref={r}>
+            <ringGeometry args={[0.05, 0.062, 48]} />
+            <meshBasicMaterial
+              color={color}
+              transparent
+              opacity={0}
+              side={THREE.DoubleSide}
+              blending={THREE.AdditiveBlending}
+              depthWrite={false}
+            />
+          </mesh>
+        ))}
+        <Html center distanceFactor={7} zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
+          <div ref={label} className={`globe-label globe-label--${side}`} style={{ '--c': station.color }}>
+            <span className="globe-label__city">{t(station.city, lang)}</span>
+            <span className="globe-label__meta">{station.years}</span>
+          </div>
+        </Html>
+      </group>
+    </>
   );
 }
 

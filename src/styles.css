@@ -26,10 +26,13 @@
    01 · TOKENS
    ================================================================== */
 :root {
-  /* --- ground ---------------------------------------------------- */
+  /* --- ground ----------------------------------------------------
+     --sheet is deliberately translucent: the particle field shows
+     through the lower sections instead of being covered by them. */
   --bg: #04060c;
-  --sheet: #070a12;
-  --sheet-2: #0a0e18;
+  --sheet: rgba(7, 10, 18, 0.62);
+  --sheet-2: rgba(10, 14, 24, 0.42);
+  --sheet-blur: blur(26px) saturate(150%);
 
   /* --- ink -------------------------------------------------------- */
   --ink: #eef2f9;
@@ -354,7 +357,8 @@ img {
    05 · LAYOUT — two registers
    ------------------------------------------------------------------
    SCENE  the 3D field is the subject; copy sits on glass beside it.
-   SHEET  an opaque survey sheet; the field is gone, type gets loud.
+   SHEET  a frosted survey sheet; the field stays visible but blurred
+          back, so type can get loud without losing the backdrop.
    ================================================================== */
 .main {
   position: relative;
@@ -397,9 +401,13 @@ img {
 
 /* --- SHEET --------------------------------------------------------
    One continuous run of sections wrapped in .sheet. The ground is a
-   single opaque plate that fades in at the top and out at the bottom,
+   single frosted plate that fades in at the top and out at the bottom,
    so entering and leaving the sheet is a designed moment rather than
-   ten separate scrims fighting the particle field.                   */
+   ten separate scrims fighting the particle field.
+
+   The plate is translucent and blurred rather than opaque, so the
+   particle field keeps living behind every section — the blur is what
+   stops it competing with the copy.                                  */
 .sheet {
   position: relative;
   isolation: isolate;
@@ -412,8 +420,23 @@ img {
   z-index: -2;
   background:
     linear-gradient(180deg, var(--sheet-2), var(--sheet) 22%, var(--sheet) 78%, var(--sheet-2));
+  -webkit-backdrop-filter: var(--sheet-blur);
+  backdrop-filter: var(--sheet-blur);
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 clamp(90px, 12vh, 190px), #000 calc(100% - clamp(90px, 12vh, 190px)), transparent);
   mask-image: linear-gradient(180deg, transparent, #000 clamp(90px, 12vh, 190px), #000 calc(100% - clamp(90px, 12vh, 190px)), transparent);
+}
+
+/* no blur support → fall back to an opaque plate, or the copy would sit
+   directly on the moving particle field */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .sheet::before {
+    background: linear-gradient(180deg, #0a0e18, #070a12 22%, #070a12 78%, #0a0e18);
+  }
+
+  .card,
+  .proof__item {
+    background: rgba(12, 17, 28, 0.92);
+  }
 }
 
 /* graticule — the sheet is a map sheet */
@@ -521,14 +544,17 @@ img {
   text-shadow: 0 1px 3px rgba(2, 4, 9, 0.55);
 }
 
-/* the flat sheet card — no blur, no sheen, one border, one tone edge */
+/* the sheet card — frosted glass over the live field, one tone edge */
 .card {
   position: relative;
   padding: var(--s-4) var(--s-5);
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 2px solid var(--tone, var(--rule-2));
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass-sheen), rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 8px 24px -14px rgba(0, 0, 0, 0.7);
   transition: background var(--t-mid) var(--ease), border-color var(--t-mid) var(--ease), transform var(--t-mid) var(--ease);
 }
 
@@ -1660,7 +1686,10 @@ button.card:hover {
   border-radius: var(--r-sm);
   border: 1px solid var(--rule);
   border-inline-start: 2px solid var(--tone);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--glass-sheen), rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 8px 24px -14px rgba(0, 0, 0, 0.7);
   color: inherit;
   transition: background var(--t-mid), transform var(--t-mid) var(--ease);
 }
@@ -1917,10 +1946,19 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   .contact__card,
   .route__item,
   .btn,
-  .glass {
+  .glass,
+  .card,
+  .proof__item {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
     background: rgba(7, 11, 19, 0.94);
+  }
+
+  /* without the blur the sheet must carry legibility on its own */
+  .sheet::before {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: linear-gradient(180deg, rgba(10, 14, 24, 0.96), rgba(7, 10, 18, 0.97) 22%, rgba(7, 10, 18, 0.97) 78%, rgba(10, 14, 24, 0.96));
   }
 
   .btn--primary { background: var(--teal); }
@@ -1930,10 +1968,18 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   .panel,
   .contact__card,
   .route__item,
-  .glass {
+  .glass,
+  .card,
+  .proof__item {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: rgba(7, 10, 17, 0.95);
+  }
+
+  .sheet::before {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(180deg, rgba(10, 14, 24, 0.97), rgba(7, 10, 18, 0.98) 22%, rgba(7, 10, 18, 0.98) 78%, rgba(10, 14, 24, 0.97));
   }
 }
 
