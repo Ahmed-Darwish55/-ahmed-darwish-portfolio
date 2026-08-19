@@ -1917,12 +1917,13 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   stroke-dasharray: 2 9;
 }
 
-/* Colour lighting the ghost's own dots as the road is travelled. A hair
-   wider than the ghost so the lit dots read as brighter, not as a second
-   row of them. */
+/* Colour lighting the ghost's own dots as the road is travelled — same
+   dash pattern, a hair wider so a lit dot reads as brighter rather than
+   as a second row. The glow stays tight so it cannot bridge the gaps. */
 .route-map__line {
   stroke-width: 2;
-  filter: drop-shadow(0 0 8px rgba(34, 179, 214, 0.85));
+  stroke-dasharray: 2 9;
+  filter: drop-shadow(0 0 4px rgba(34, 179, 214, 0.9));
 }
 
 /* the bright tip that runs ahead of the drawn road */

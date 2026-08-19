@@ -44,6 +44,7 @@ export default function Route() {
   const wrap = useRef();
   const pathRef = useRef();
   const headRef = useRef();
+  const clipRef = useRef();
   const onScrollRef = useRef(() => {});
   const refreshRef = useRef(() => {});
   const [geom, setGeom] = useState(null);
@@ -134,8 +135,10 @@ export default function Route() {
 
     const path = pathRef.current;
     const len = path.getTotalLength();
-    path.style.strokeDasharray = String(len);
-    path.style.strokeDashoffset = String(len);
+    /* The reveal rides a clip rectangle rather than the stroke's dash
+       offset, which leaves strokeDasharray free to carry the dot pattern.
+       Trying to do both on one stroke is what kept the line solid. */
+    const clip = clipRef.current;
 
     const ctx = gsap.context(() => {
       /* Map the drawn length to where the reader actually is, not to raw
@@ -206,8 +209,9 @@ export default function Route() {
 
       let v = sample();
       const apply = () => {
-        path.style.strokeDashoffset = String(len - v);
         const p = path.getPointAtLength(v);
+        // reveal everything above the tip
+        if (clip) clip.setAttribute('height', String(Math.max(0, p.y)));
         if (headRef.current) {
           headRef.current.setAttribute('cx', p.x);
           headRef.current.setAttribute('cy', p.y);
@@ -282,31 +286,23 @@ export default function Route() {
             <stop offset="55%" stopColor="#22B3D6" />
             <stop offset="100%" stopColor="#17D3A3" />
           </linearGradient>
-          {/* the ghost's dash pattern, kept identical so the two line up */}
-          <mask id="routeDots" maskUnits="userSpaceOnUse">
-            <path
-              d={geom.d}
-              fill="none"
-              stroke="#fff"
-              strokeWidth="10"
-              strokeDasharray="2 9"
-              strokeLinecap="round"
-            />
-          </mask>
+          {/* The reveal: everything above the tip is shown. Keeping it on a
+              clip leaves the stroke's own dasharray free for the dots. */}
+          <clipPath id="routeReveal">
+            <rect ref={clipRef} x="0" y="0" width={geom.width} height="0" />
+          </clipPath>
         </defs>
 
         {/* the road ahead, dashed and faint */}
         <path className="route-map__ghost" d={geom.d} />
-        {/* The road travelled. Its own strokeDasharray is spent on the
-            scroll reveal, so the dotting comes from a mask that repeats
-            the ghost's exact pattern — the colour lands on the very dots
-            already drawn rather than forming a second dotted line. */}
+        {/* The road travelled: the same dotted pattern as the ghost, in
+            colour, clipped to whatever the tip has reached. */}
         <path
           className="route-map__line"
           ref={pathRef}
           d={geom.d}
           stroke="url(#routeGrad)"
-          mask="url(#routeDots)"
+          clipPath="url(#routeReveal)"
         />
         {/* the surveyor's head, riding the tip */}
         <circle className="route-map__head" ref={headRef} r="5" cx="0" cy="0" />
