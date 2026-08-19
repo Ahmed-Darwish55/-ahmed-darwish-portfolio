@@ -1886,21 +1886,27 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
    scroll and plants a marker at every section, so the page reads as
    a route across a map. Purely decorative — never takes a click.
    ================================================================== */
-/* The road spans the whole page. It has to out-rank .sheet, whose
-   frosted plate would otherwise paint straight over it, while the
-   sections themselves stay above the road — hence both get a layer. */
+/* The road spans the whole page and sits *under* everything: it has to
+   out-rank .sheet's frosted plate (which would paint over it), but stay
+   below every section so it never crosses the copy. Kept faint on top of
+   that, so it reads as a map underlay rather than an overlay. */
 .route-map {
   position: absolute;
   inset: 0 0 auto 0;
   width: 100%;
   z-index: 1;
+  opacity: 0.5;
   pointer-events: none;
 }
 
-/* sized in real pixels by the component, so no stretching here */
+/* Sized in real pixels by the component, so no stretching here. The fade
+   lives here rather than on the wrapper so it dims the road only — the
+   pins are landmarks and keep their own opacity, which the plant/pull
+   animation drives from zero. */
 .route-map__svg {
   display: block;
   overflow: visible;
+  opacity: 0.5;
 }
 
 .route-map__ghost,
@@ -1942,9 +1948,10 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 
 .route-map__glyph {
   position: absolute;
-  /* the point of the pin is its anchor, so it stands on the road */
+  /* the point of the pin is its anchor, so it stands on the road — lifted
+     clear of it so a section edge can never crop the head */
   left: -11px;
-  top: -30px;
+  top: -38px;
   width: 22px;
   height: 30px;
   filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.6));

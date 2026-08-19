@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useStore } from '../store';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,6 +47,8 @@ export default function Route() {
   const onScrollRef = useRef(() => {});
   const refreshRef = useRef(() => {});
   const [geom, setGeom] = useState(null);
+  // the globe swaps sides in Arabic, so the road has to be re-measured
+  const lang = useStore((s) => s.lang);
 
   /* Measure every section and build a path that weaves between them. */
   const measure = useCallback(() => {
@@ -55,11 +58,11 @@ export default function Route() {
     const docTop = window.scrollY;
     const width = document.documentElement.clientWidth;
 
-    /* The road starts at the middle of the globe rather than the top of
-       the page, so it reads as leaving the planet. */
+    /* The road leaves from the foot of the globe, not its centre, so it
+       reads as setting off from the planet rather than out of its middle. */
     const hero = document.getElementById('hero');
     const heroBox = hero?.getBoundingClientRect();
-    const start = heroBox ? heroBox.top + docTop + heroBox.height * 0.5 : 0;
+    const start = heroBox ? heroBox.top + docTop + heroBox.height * 0.82 : 0;
 
     const stops = sections
       .map((el, i) => {
@@ -76,11 +79,16 @@ export default function Route() {
 
     if (!stops.length) return;
 
-    const height = stops[stops.length - 1].y + 200;
+    /* Run the road to the true bottom of the page, not just past the last
+       pin — otherwise it stops short and the final section has no road. */
+    const pageEnd = document.documentElement.scrollHeight;
+    const height = Math.max(stops[stops.length - 1].y + 220, pageEnd);
 
     /* A smooth road: each leg leaves a stop heading straight down, then
        curves into the next one, so the joins never kink. */
-    const startX = width * 0.62; // roughly the globe's centre on the hero
+    // the globe sits to one side on the hero, and swaps sides in Arabic
+    const rtl = document.documentElement.dir === 'rtl';
+    const startX = width * (rtl ? 0.38 : 0.62);
     let d = `M ${startX} ${start}`;
     for (let i = 0; i < stops.length; i++) {
       const b = stops[i];
@@ -93,11 +101,14 @@ export default function Route() {
       const gap = b.y - a.y;
       d += ` C ${a.x} ${a.y + gap * 0.42}, ${b.x} ${b.y - gap * 0.42}, ${b.x} ${b.y}`;
     }
+    // the tail keeps wandering rather than dropping straight down
     const last = stops[stops.length - 1];
-    d += ` L ${last.x} ${height}`;
+    const tailX = last.x > width * 0.5 ? width * 0.3 : width * 0.7;
+    const tailGap = height - last.y;
+    d += ` C ${last.x} ${last.y + tailGap * 0.45}, ${tailX} ${height - tailGap * 0.35}, ${tailX} ${height}`;
 
     setGeom({ d, stops, height, width, start });
-  }, []);
+  }, [lang]);
 
   useLayoutEffect(() => {
     measure();
@@ -271,12 +282,23 @@ export default function Route() {
             <stop offset="55%" stopColor="#22B3D6" />
             <stop offset="100%" stopColor="#17D3A3" />
           </linearGradient>
+          {/* The drawn line already spends strokeDasharray on its reveal,
+              so the dashes come from a mask instead of the stroke itself. */}
+          <mask id="routeDashes" maskUnits="userSpaceOnUse">
+            <path d={geom.d} fill="none" stroke="#fff" strokeWidth="8" strokeDasharray="13 11" />
+          </mask>
         </defs>
 
         {/* the road ahead, dashed and faint */}
         <path className="route-map__ghost" d={geom.d} />
         {/* the road travelled, drawn by scroll */}
-        <path className="route-map__line" ref={pathRef} d={geom.d} stroke="url(#routeGrad)" />
+        <path
+          className="route-map__line"
+          ref={pathRef}
+          d={geom.d}
+          stroke="url(#routeGrad)"
+          mask="url(#routeDashes)"
+        />
         {/* the surveyor's head, riding the tip */}
         <circle className="route-map__head" ref={headRef} r="5" cx="0" cy="0" />
       </svg>
