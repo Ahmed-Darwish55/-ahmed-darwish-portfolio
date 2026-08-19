@@ -1888,25 +1888,20 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
    ================================================================== */
 /* The road spans the whole page and sits *under* everything: it has to
    out-rank .sheet's frosted plate (which would paint over it), but stay
-   below every section so it never crosses the copy. Kept faint on top of
-   that, so it reads as a map underlay rather than an overlay. */
+   below every section so it never crosses the copy. Staying under the
+   copy is what keeps it out of the way — so it keeps its full colour. */
 .route-map {
   position: absolute;
   inset: 0 0 auto 0;
   width: 100%;
   z-index: 1;
-  opacity: 0.5;
   pointer-events: none;
 }
 
-/* Sized in real pixels by the component, so no stretching here. The fade
-   lives here rather than on the wrapper so it dims the road only — the
-   pins are landmarks and keep their own opacity, which the plant/pull
-   animation drives from zero. */
+/* sized in real pixels by the component, so no stretching here */
 .route-map__svg {
   display: block;
   overflow: visible;
-  opacity: 0.5;
 }
 
 .route-map__ghost,
@@ -1925,7 +1920,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 /* a solid colour tracing over the dotted ghost as the road is travelled */
 .route-map__line {
   stroke-width: 2.6;
-  filter: drop-shadow(0 0 6px rgba(34, 179, 214, 0.55));
+  filter: drop-shadow(0 0 8px rgba(34, 179, 214, 0.75));
 }
 
 /* the bright tip that runs ahead of the drawn road */
