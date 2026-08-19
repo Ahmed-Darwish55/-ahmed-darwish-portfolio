@@ -69,22 +69,30 @@ export default function Route() {
     const stops = sections
       .map((el, i) => {
         const r = el.getBoundingClientRect();
-        return {
-          id: el.id,
-          // plant the pin inside the section rather than on its seam
-          y: r.top + docTop + Math.min(r.height * 0.42, 320),
-          x: LANES[i % LANES.length] * width,
-        };
+        /* A blind fraction of the section height drops the pin straight
+           onto a card — on the tall Recognition section it landed on the
+           Conferences row and vanished behind it. Aim just above the
+           section's first card instead, so the pin always sits in the
+           clear band under the heading. */
+        const first = el.querySelector(
+          '.route__item, .card, .proof__item, .stack__layer, .case, .panel, .contact__card'
+        );
+        let y = r.top + docTop + Math.min(r.height * 0.42, 320);
+        if (first) {
+          const f = first.getBoundingClientRect();
+          y = Math.min(y, f.top + docTop - 26);
+        }
+        return { id: el.id, y, x: LANES[i % LANES.length] * width };
       })
       // a stop above the start would make the road double back on itself
       .filter((s) => s.y > start + 40);
 
     if (!stops.length) return;
 
-    /* Run the road to the true bottom of the page, not just past the last
-       pin — otherwise it stops short and the final section has no road. */
-    const pageEnd = document.documentElement.scrollHeight;
-    const height = Math.max(stops[stops.length - 1].y + 220, pageEnd);
+    /* The road ends at its last stop — it is a route between places, so
+       running it on to the foot of the page left a tail past the final
+       pin with nowhere to go. */
+    const height = stops[stops.length - 1].y;
 
     /* A smooth road: each leg leaves a stop heading straight down, then
        curves into the next one, so the joins never kink. */
@@ -103,12 +111,6 @@ export default function Route() {
       const gap = b.y - a.y;
       d += ` C ${a.x} ${a.y + gap * 0.42}, ${b.x} ${b.y - gap * 0.42}, ${b.x} ${b.y}`;
     }
-    // the tail keeps wandering rather than dropping straight down
-    const last = stops[stops.length - 1];
-    const tailX = last.x > width * 0.5 ? width * 0.3 : width * 0.7;
-    const tailGap = height - last.y;
-    d += ` C ${last.x} ${last.y + tailGap * 0.45}, ${tailX} ${height - tailGap * 0.35}, ${tailX} ${height}`;
-
     setGeom({ d, stops, height, width, start });
   }, [lang]);
 
