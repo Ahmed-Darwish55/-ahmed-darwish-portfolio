@@ -282,12 +282,32 @@ export default function Route() {
             <stop offset="55%" stopColor="#22B3D6" />
             <stop offset="100%" stopColor="#17D3A3" />
           </linearGradient>
+          {/* the ghost's dash pattern, kept identical so the two line up */}
+          <mask id="routeDots" maskUnits="userSpaceOnUse">
+            <path
+              d={geom.d}
+              fill="none"
+              stroke="#fff"
+              strokeWidth="10"
+              strokeDasharray="2 9"
+              strokeLinecap="round"
+            />
+          </mask>
         </defs>
 
         {/* the road ahead, dashed and faint */}
         <path className="route-map__ghost" d={geom.d} />
-        {/* the road travelled: a solid colour running over the dotted ghost */}
-        <path className="route-map__line" ref={pathRef} d={geom.d} stroke="url(#routeGrad)" />
+        {/* The road travelled. Its own strokeDasharray is spent on the
+            scroll reveal, so the dotting comes from a mask that repeats
+            the ghost's exact pattern — the colour lands on the very dots
+            already drawn rather than forming a second dotted line. */}
+        <path
+          className="route-map__line"
+          ref={pathRef}
+          d={geom.d}
+          stroke="url(#routeGrad)"
+          mask="url(#routeDots)"
+        />
         {/* the surveyor's head, riding the tip */}
         <circle className="route-map__head" ref={headRef} r="5" cx="0" cy="0" />
       </svg>

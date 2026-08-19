@@ -1917,10 +1917,12 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   stroke-dasharray: 2 9;
 }
 
-/* a solid colour tracing over the dotted ghost as the road is travelled */
+/* Colour lighting the ghost's own dots as the road is travelled. A hair
+   wider than the ghost so the lit dots read as brighter, not as a second
+   row of them. */
 .route-map__line {
-  stroke-width: 2.6;
-  filter: drop-shadow(0 0 8px rgba(34, 179, 214, 0.75));
+  stroke-width: 2;
+  filter: drop-shadow(0 0 8px rgba(34, 179, 214, 0.85));
 }
 
 /* the bright tip that runs ahead of the drawn road */
