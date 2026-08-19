@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" role="img" aria-label="Urban Photo Library — placeholder">
+  <defs>
+    <linearGradient id="bg-pl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080d16"/><stop offset="1" stop-color="#050810"/>
+    </linearGradient>
+    <pattern id="grid-pl" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#E8B14C" stroke-opacity=".10" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="800" fill="url(#bg-pl)"/>
+  <rect width="1280" height="800" fill="url(#grid-pl)"/>
+  
+  <g>
+    <rect x="120" y="190" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".18"/>
+    <path d="M138 320 L198 264 L246 302 L288 256 L332 298" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="306" cy="230" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="382" y="190" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".24"/>
+    <path d="M400 320 L460 264 L508 302 L550 256 L594 298" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="568" cy="230" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="644" y="190" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".30"/>
+    <path d="M662 320 L722 264 L770 302 L812 256 L856 298" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="830" cy="230" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="906" y="190" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".18"/>
+    <path d="M924 320 L984 264 L1032 302 L1074 256 L1118 298" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="1092" cy="230" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="120" y="380" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".24"/>
+    <path d="M138 510 L198 454 L246 492 L288 446 L332 488" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="306" cy="420" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="382" y="380" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".30"/>
+    <path d="M400 510 L460 454 L508 492 L550 446 L594 488" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="568" cy="420" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="644" y="380" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".18"/>
+    <path d="M662 510 L722 454 L770 492 L812 446 L856 488" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="830" cy="420" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="906" y="380" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".24"/>
+    <path d="M924 510 L984 454 L1032 492 L1074 446 L1118 488" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="1092" cy="420" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="120" y="570" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".30"/>
+    <path d="M138 700 L198 644 L246 682 L288 636 L332 678" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="306" cy="610" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="382" y="570" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".18"/>
+    <path d="M400 700 L460 644 L508 682 L550 636 L594 678" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="568" cy="610" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="644" y="570" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".24"/>
+    <path d="M662 700 L722 644 L770 682 L812 636 L856 678" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="830" cy="610" r="11" fill="#E8B14C" fill-opacity=".22"/>
+    <rect x="906" y="570" width="230" height="158" rx="8" fill="#0d1524" stroke="#E8B14C" stroke-opacity=".30"/>
+    <path d="M924 700 L984 644 L1032 682 L1074 636 L1118 678" fill="none" stroke="#E8B14C" stroke-opacity=".30" stroke-width="2"/>
+    <circle cx="1092" cy="610" r="11" fill="#E8B14C" fill-opacity=".22"/>
+  </g>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="17" fill="#E8B14C" fill-opacity=".85">
+    <text x="44" y="60" letter-spacing="3">URBAN PHOTO LIBRARY</text>
+  </g>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#8A94A6">
+    <text x="44" y="760" letter-spacing="2">PLACEHOLDER — REPLACE WITH REAL CAPTURE</text>
+  </g>
+  <rect x="10" y="10" width="1260" height="780" fill="none"
+        stroke="#E8B14C" stroke-opacity=".35" stroke-width="2" stroke-dasharray="14 10" rx="6"/>
+</svg>

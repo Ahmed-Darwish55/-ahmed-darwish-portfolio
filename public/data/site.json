@@ -1,0 +1,752 @@
+{
+  "_readme": [
+    "CONTENT — timeline, case studies, the capability stack, the digital twin,",
+    "conferences, awards and certificates.",
+    "Bundled at build time AND fetched at runtime — edit on the server and refresh.",
+    "IMAGES: a bare file name (e.g. 'forum-vr.jpg') loads from src/media/.",
+    "A path starting with ./ or / or http is used as-is — put new files in public/media/.",
+    "Case-study images marked \"placeholder\": true render a PLACEHOLDER badge.",
+    "Every text field takes { en, ar }."
+  ],
+  "timeline": [
+    {
+      "station": "giza",
+      "period": "2014 — 2018",
+      "org": {
+        "en": "B.Sc. Computer & Information Sciences",
+        "ar": "بكالوريوس حاسبات ومعلومات"
+      },
+      "role": {
+        "en": "Giza, Egypt · Grade: Very Good",
+        "ar": "الجيزة، مصر · تقدير: جيد جدًا"
+      },
+      "bullets": {
+        "en": [
+          "Foundations in algorithms, databases and software engineering."
+        ],
+        "ar": [
+          "أساسيات الخوارزميات وقواعد البيانات وهندسة البرمجيات."
+        ]
+      }
+    },
+    {
+      "station": "giza",
+      "period": "2019 — 2020",
+      "org": {
+        "en": "Delta-Soft",
+        "ar": "دلتا سوفت"
+      },
+      "role": {
+        "en": "Front-end Developer",
+        "ar": "مطوّر واجهات أمامية"
+      },
+      "bullets": {
+        "en": [
+          "Built responsive product interfaces with JavaScript, Sass and jQuery.",
+          "Translated design files into pixel-accurate, cross-browser markup."
+        ],
+        "ar": [
+          "بنيت واجهات منتجات متجاوبة بـ JavaScript و Sass و jQuery.",
+          "حوّلت ملفات التصميم لكود دقيق يشتغل على كل المتصفحات."
+        ]
+      }
+    },
+    {
+      "station": "giza",
+      "period": "2020 — 2024",
+      "org": {
+        "en": "El-Zero Academy",
+        "ar": "أكاديمية الزيرو"
+      },
+      "role": {
+        "en": "Front-end Instructor",
+        "ar": "مدرّب واجهات أمامية"
+      },
+      "bullets": {
+        "en": [
+          "Taught HTML, CSS, JavaScript and modern framework fundamentals.",
+          "Mentored students through their first production-grade projects."
+        ],
+        "ar": [
+          "درّست HTML و CSS و JavaScript وأساسيات الفريمووركس الحديثة.",
+          "تابعت الطلاب في أول مشاريعهم بمستوى احترافي."
+        ]
+      }
+    },
+    {
+      "station": "giza",
+      "period": "2020 — 2024",
+      "org": {
+        "en": "Freelance Full-Stack Developer",
+        "ar": "مطوّر فُل ستاك — فريلانس"
+      },
+      "role": {
+        "en": "MEARN stack · ITI & NTI trained",
+        "ar": "ستاك MEARN · خريج ITI و NTI"
+      },
+      "bullets": {
+        "en": [
+          "Delivered 15+ client projects: e-commerce, dashboards, landing pages and PWAs.",
+          "MEARN-Stack diploma (ITI, 2021–2022) and Web Development track (NTI, 2020)."
+        ],
+        "ar": [
+          "سلّمت أكتر من ١٥ مشروع: متاجر إلكترونية، لوحات تحكم، صفحات هبوط، و PWA.",
+          "دبلومة MEARN من ITI (٢٠٢١–٢٠٢٢) ومسار تطوير الويب من NTI (٢٠٢٠)."
+        ]
+      }
+    },
+    {
+      "station": "dammam",
+      "period": "Sep 2022 — Jul 2023",
+      "org": {
+        "en": "Ala Abdulhadi & Khalifa Hawas Consulting Engineering Co. (iSEC / AHCEC)",
+        "ar": "شركة علاء عبدالهادي وخليفة هواس للاستشارات الهندسية (iSEC / AHCEC)"
+      },
+      "role": {
+        "en": "Full-stack & GIS Developer · Dammam",
+        "ar": "مطوّر فُل ستاك و GIS · الدمام"
+      },
+      "bullets": {
+        "en": [
+          "Built full-stack web applications and GIS tools supporting the firm’s engineering consulting projects.",
+          "Angular and React front-ends, Node.js services and spatial data integration."
+        ],
+        "ar": [
+          "بنيت تطبيقات ويب فُل ستاك وأدوات GIS تخدم مشاريع الاستشارات الهندسية في الشركة.",
+          "واجهات بأنجولار وريأكت، وخدمات Node.js، وربط البيانات المكانية."
+        ]
+      }
+    },
+    {
+      "station": "dammam",
+      "period": "May 2024 — Present",
+      "org": {
+        "en": "Sharqia Development Authority (SDA)",
+        "ar": "هيئة تطوير المنطقة الشرقية"
+      },
+      "role": {
+        "en": "GIS Developer · Front-end Developer · UI/UX",
+        "ar": "مطوّر GIS · مطوّر واجهات · UI/UX"
+      },
+      "bullets": {
+        "en": [
+          "Own the front-end and experience design across the authority’s geospatial platforms.",
+          "Angular, React, ArcGIS API, Experience Builder and custom widget development."
+        ],
+        "ar": [
+          "مسؤول عن الفرونت إند وتجربة المستخدم في منصّات الهيئة الجغرافية.",
+          "أنجولار، ريأكت، ArcGIS API، Experience Builder، وتطوير ويدجتس مخصصة."
+        ]
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "geo2d",
+      "order": 1,
+      "env": "map",
+      "accent": "#17D3A3",
+      "period": "2024",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "GIS Platform",
+        "ar": "منصة GIS"
+      },
+      "title": {
+        "en": "2D Geo-Explorer",
+        "ar": "المستكشف الجغرافي 2D"
+      },
+      "role": {
+        "en": "UI/UX + Front-end GIS",
+        "ar": "UI/UX + واجهات GIS"
+      },
+      "team": true,
+      "context": {
+        "en": "The authority's 2D geospatial explorer for the Eastern Province.",
+        "ar": "المستكشف الجغرافي ثنائي الأبعاد للمنطقة الشرقية التابع للهيئة."
+      },
+      "did": {
+        "en": [
+          "Worked as UI/UX for the full interface and interactions.",
+          "Developed core GIS features as part of the front-end implementation."
+        ],
+        "ar": [
+          "اشتغلت UI/UX للواجهة والتفاعلات بالكامل.",
+          "طوّرت خصائص الـGIS الأساسية كجزء من تنفيذ الواجهة الأمامية."
+        ]
+      },
+      "tech": [
+        "UI/UX",
+        "ArcGIS JS API",
+        "Angular"
+      ],
+      "image": "./media/case-geo2d.svg",
+      "placeholder": true
+    },
+    {
+      "id": "geo3d",
+      "order": 2,
+      "env": "terrain",
+      "accent": "#4CC9F0",
+      "period": "Jul — Aug 2024",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "3D Mapping",
+        "ar": "خرائط ثلاثية الأبعاد"
+      },
+      "title": {
+        "en": "3D Geo-Explorer",
+        "ar": "المستكشف الجغرافي 3D"
+      },
+      "role": {
+        "en": "3D interface & experience design + GIS development",
+        "ar": "تصميم الواجهة والتجربة 3D + تطوير GIS"
+      },
+      "team": true,
+      "context": {
+        "en": "The three-dimensional counterpart to the 2D explorer — terrain, depth and navigation.",
+        "ar": "النسخة ثلاثية الأبعاد من المستكشف — تضاريس وعمق وتنقّل."
+      },
+      "did": {
+        "en": [
+          "Designed the 3D interface and user experience components.",
+          "Developed GIS functionalities and 3D map visualizations."
+        ],
+        "ar": [
+          "صمّمت مكوّنات الواجهة وتجربة الاستخدام ثلاثية الأبعاد.",
+          "طوّرت وظائف الـGIS وتصورات الخرائط ثلاثية الأبعاد."
+        ]
+      },
+      "tech": [
+        "3D UX",
+        "SceneView",
+        "WebGL",
+        "ArcGIS"
+      ],
+      "image": "./media/case-geo3d.svg",
+      "placeholder": true
+    },
+    {
+      "id": "photolib",
+      "order": 3,
+      "env": "imagery",
+      "accent": "#E8B14C",
+      "period": "Aug 2024",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "3D Experience",
+        "ar": "تجربة ثلاثية الأبعاد"
+      },
+      "title": {
+        "en": "Urban Photo Library",
+        "ar": "مكتبة الصور العمرانية"
+      },
+      "role": {
+        "en": "Design & development + custom widget",
+        "ar": "تصميم وتطوير + ويدجت مخصص"
+      },
+      "team": false,
+      "context": {
+        "en": "A way to explore and request urban imagery across the Eastern Province.",
+        "ar": "طريقة لاستكشاف وطلب الصور العمرانية في المنطقة الشرقية."
+      },
+      "did": {
+        "en": [
+          "Designed and developed a 3D map experience to explore and request images across the Eastern Province.",
+          "Created a custom widget on Experience Builder to browse categorized urban images interactively."
+        ],
+        "ar": [
+          "صمّمت وطوّرت تجربة خريطة ثلاثية الأبعاد لاستكشاف وطلب الصور في المنطقة الشرقية.",
+          "بنيت ويدجت مخصص على Experience Builder لتصفح الصور العمرانية المصنّفة بشكل تفاعلي."
+        ]
+      },
+      "tech": [
+        "Experience Builder",
+        "Custom Widget",
+        "3D Map"
+      ],
+      "image": "./media/case-photolib.svg",
+      "placeholder": true
+    },
+    {
+      "id": "exb",
+      "order": 4,
+      "env": "tooling",
+      "accent": "#B388FF",
+      "period": "1 — 15 Sep 2024",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "Developer Tooling",
+        "ar": "أدوات تطوير"
+      },
+      "title": {
+        "en": "Experience Builder Enhancements",
+        "ar": "تحسينات Experience Builder"
+      },
+      "role": {
+        "en": "Tooling & team workflow",
+        "ar": "الأدوات وسير عمل الفريق"
+      },
+      "team": true,
+      "context": {
+        "en": "Shared widgets were being developed without version control or motion language.",
+        "ar": "الويدجتس المشتركة كانت بتتطوّر من غير إدارة إصدارات ولا لغة حركة."
+      },
+      "did": {
+        "en": [
+          "Implemented a source control system for team collaboration on shared widgets.",
+          "Integrated the GSAP animation library into Experience Builder for smooth transitions and effects."
+        ],
+        "ar": [
+          "نفّذت نظام إدارة إصدارات لتعاون الفريق على الويدجتس المشتركة.",
+          "دمجت مكتبة GSAP داخل Experience Builder لانتقالات وتأثيرات ناعمة."
+        ]
+      },
+      "tech": [
+        "Git",
+        "GSAP",
+        "Experience Builder"
+      ],
+      "image": "./media/case-exb.svg",
+      "placeholder": true
+    },
+    {
+      "id": "srd",
+      "order": 5,
+      "env": "data",
+      "accent": "#B388FF",
+      "period": "Oct — Nov 2024",
+      "org": "Sharqia Development Authority",
+      "kind": {
+        "en": "Data Platform",
+        "ar": "منصة بيانات"
+      },
+      "title": {
+        "en": "SRD — Unified Data Platform",
+        "ar": "منصة البيانات الموحدة SRD"
+      },
+      "role": {
+        "en": "Angular front-end developer & UI/UX designer",
+        "ar": "مطوّر واجهات أنجولار ومصمّم UI/UX"
+      },
+      "team": true,
+      "award": true,
+      "context": {
+        "en": "A unified platform presenting urban indicators for the Eastern Province.",
+        "ar": "منصة موحدة بتعرض المؤشرات العمرانية للمنطقة الشرقية."
+      },
+      "did": {
+        "en": [
+          "Worked as Angular front-end developer and UI/UX designer.",
+          "Built dynamic dashboards and interfaces to present unified urban indicators."
+        ],
+        "ar": [
+          "اشتغلت مطوّر واجهات أنجولار ومصمّم UI/UX.",
+          "بنيت لوحات تحكم وواجهات ديناميكية لعرض المؤشرات العمرانية الموحدة."
+        ]
+      },
+      "tech": [
+        "Angular",
+        "Dashboards",
+        "UI/UX"
+      ],
+      "outcome": {
+        "en": "Honoured with the Esri Award for Excellence at Esri MENA UC 2026, Riyadh.",
+        "ar": "حصلت على جائزة Esri للتميّز في مؤتمر Esri MENA ٢٠٢٦ بالرياض."
+      },
+      "image": "./media/case-srd.svg",
+      "placeholder": true
+    }
+  ],
+  "twin": {
+    "accent": "#4CC9F0",
+    "period": "2025",
+    "org": "Sharqia Development Authority",
+    "kind": {
+      "en": "Digital Twin · VR",
+      "ar": "توأم رقمي · VR"
+    },
+    "title": {
+      "en": "Arts Walk Digital Twin",
+      "ar": "التوأم الرقمي لممشى الفنون"
+    },
+    "subject": {
+      "en": "Arts Walk (Mamsha Al-Funoon), Khobar",
+      "ar": "ممشى الفنون، الخبر"
+    },
+    "role": {
+      "en": "Presented with the GIS team of Sharqia Development Authority",
+      "ar": "قُدّم مع فريق GIS في هيئة تطوير المنطقة الشرقية"
+    },
+    "team": true,
+    "context": {
+      "en": "Shown at the Regions & Cities Development Forum, Eastern Province.",
+      "ar": "اتعرض في منتدى تنمية المناطق والمدن، المنطقة الشرقية."
+    },
+    "did": {
+      "en": [
+        "Integrated the Esri platform with the Unity engine to build the twin.",
+        "Presented in VR for the Arts Walk (Mamsha Al-Funoon) project in Khobar.",
+        "Leadership stepped into the headset and walked the project before a brick was laid."
+      ],
+      "ar": [
+        "دمجت منصة Esri مع محرك Unity لبناء التوأم الرقمي.",
+        "اتعرض بنظارة VR لمشروع ممشى الفنون في الخبر.",
+        "القيادة لبست النظارة ومشيت في المشروع قبل ما يتحط فيه طوبة."
+      ]
+    },
+    "tech": [
+      "Esri",
+      "Unity",
+      "VR",
+      "Digital Twin"
+    ],
+    "tags": [
+      "Vision 2030"
+    ],
+    "gallery": [
+      "forum-vr.jpg",
+      "forum-vr-2.jpg",
+      "forum-group.jpg"
+    ]
+  },
+  "stack": [
+    {
+      "id": "ux",
+      "z": 0,
+      "accent": "#4CC9F0",
+      "title": {
+        "en": "Spatial UX",
+        "ar": "تجربة الاستخدام المكانية"
+      },
+      "blurb": {
+        "en": "Interface and interaction design for maps — how people read, filter and move through space.",
+        "ar": "تصميم الواجهات والتفاعل للخرائط — إزاي الناس بتقرا وتفلتر وتتحرك في المكان."
+      },
+      "tech": [
+        "UI/UX",
+        "Spatial UX",
+        "Figma",
+        "Motion design"
+      ],
+      "evidence": [
+        "geo2d",
+        "geo3d",
+        "srd"
+      ]
+    },
+    {
+      "id": "frontend",
+      "z": 1,
+      "accent": "#17D3A3",
+      "title": {
+        "en": "Frontend engineering",
+        "ar": "هندسة الواجهات"
+      },
+      "blurb": {
+        "en": "The application layer — component architecture, state, performance and motion.",
+        "ar": "طبقة التطبيق — معمارية المكوّنات والحالة والأداء والحركة."
+      },
+      "tech": [
+        "Angular",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Sass / CSS3",
+        "GSAP"
+      ],
+      "evidence": [
+        "geo2d",
+        "srd",
+        "exb"
+      ]
+    },
+    {
+      "id": "threed",
+      "z": 2,
+      "accent": "#4CC9F0",
+      "title": {
+        "en": "3D & immersive",
+        "ar": "الثلاثي الأبعاد والغامر"
+      },
+      "blurb": {
+        "en": "Depth, terrain and presence — from browser WebGL to VR headsets.",
+        "ar": "العمق والتضاريس والحضور — من WebGL في المتصفح لنظارات الـVR."
+      },
+      "tech": [
+        "Three.js",
+        "WebGL",
+        "SceneView",
+        "Unity",
+        "VR"
+      ],
+      "evidence": [
+        "geo3d",
+        "photolib",
+        "twin"
+      ]
+    },
+    {
+      "id": "gis",
+      "z": 3,
+      "accent": "#E8B14C",
+      "title": {
+        "en": "GIS & geospatial",
+        "ar": "الجغرافي و GIS"
+      },
+      "blurb": {
+        "en": "The spatial engine — services, layers, widgets and the Esri platform.",
+        "ar": "المحرك المكاني — الخدمات والطبقات والويدجتس ومنصة Esri."
+      },
+      "tech": [
+        "ArcGIS JS API",
+        "Experience Builder",
+        "Custom Widgets",
+        "Esri platform"
+      ],
+      "evidence": [
+        "geo2d",
+        "geo3d",
+        "photolib",
+        "exb"
+      ]
+    },
+    {
+      "id": "data",
+      "z": 4,
+      "accent": "#B388FF",
+      "title": {
+        "en": "Data & indicators",
+        "ar": "البيانات والمؤشرات"
+      },
+      "blurb": {
+        "en": "Making urban data readable — dashboards, indicators and unified sources.",
+        "ar": "تخلية البيانات العمرانية مقروءة — لوحات تحكم ومؤشرات ومصادر موحدة."
+      },
+      "tech": [
+        "Dashboards",
+        "Urban indicators",
+        "Data visualization",
+        "Node.js",
+        "SQL Server / MongoDB"
+      ],
+      "evidence": [
+        "srd"
+      ]
+    }
+  ],
+  "conferences": [
+    {
+      "id": "esri-mena-2026",
+      "date": "2026",
+      "tone": "#E8B14C",
+      "kind": {
+        "en": "Conference · Award",
+        "ar": "مؤتمر · جائزة"
+      },
+      "title": {
+        "en": "Esri MENA User Conference 2026",
+        "ar": "مؤتمر Esri لمستخدمي الشرق الأوسط وشمال إفريقيا ٢٠٢٦"
+      },
+      "place": {
+        "en": "Riyadh, Saudi Arabia",
+        "ar": "الرياض، السعودية"
+      },
+      "desc": {
+        "en": "Two days of inspiration in the heart of Riyadh. The SRD platform — the unified data platform I build the front-end for — was honoured with the Esri Award for Excellence, and I had the pleasure of meeting Esri founder Jack Dangermond.",
+        "ar": "يومين من الإلهام في قلب الرياض. منصة SRD — منصة البيانات الموحدة اللي ببني واجهتها — اتكرّمت بجائزة Esri للتميّز، وكان لي شرف مقابلة مؤسس Esri جاك دانجرموند."
+      },
+      "tags": [
+        "Esri Award for Excellence",
+        "SRD Platform",
+        "Jack Dangermond"
+      ],
+      "link": "https://www.linkedin.com/in/ahmed-darwish55/recent-activity/all/",
+      "cover": "esri-mena-team.jpg",
+      "gallery": [
+        "esri-mena-team.jpg",
+        "esri-award-stage.jpg"
+      ]
+    },
+    {
+      "id": "cities-forum-2025",
+      "date": "2025",
+      "tone": "#4CC9F0",
+      "kind": {
+        "en": "Forum · Live demo",
+        "ar": "ملتقى · عرض حي"
+      },
+      "title": {
+        "en": "Regions & Cities Development Forum",
+        "ar": "ملتقى هيئات تطوير المناطق والمدن"
+      },
+      "place": {
+        "en": "Eastern Province, Saudi Arabia",
+        "ar": "المنطقة الشرقية، السعودية"
+      },
+      "desc": {
+        "en": "Presented with the GIS team of Sharqia Development Authority: a high-fidelity Digital Twin built by integrating the Esri platform with the Unity engine, shown in VR for the award-winning Arts Walk (Mamsha Al-Funoon) project in Khobar. Leadership stepped into the headset and walked the project before a brick was laid.",
+        "ar": "قدّمناه مع فريق نظم المعلومات الجغرافية في هيئة تطوير الشرقية: توأم رقمي فائق الدقة بدمج منصة Esri مع محرك Unity، معروض بالواقع الافتراضي لمشروع «ممشى الفنون» بالخبر الحاصل على جائزة Arabian Property Awards. القيادات دخلت التجربة ومشيت في المشروع قبل ما يُبنى."
+      },
+      "tags": [
+        "Digital Twin",
+        "Esri + Unity",
+        "VR",
+        "Vision 2030"
+      ],
+      "link": "https://www.linkedin.com/in/ahmed-darwish55/recent-activity/all/",
+      "cover": "forum-vr.jpg",
+      "gallery": [
+        "forum-vr.jpg",
+        "forum-group.jpg",
+        "forum-group-2.jpg",
+        "forum-vr-2.jpg"
+      ]
+    },
+    {
+      "id": "agentic-ai-2026",
+      "date": "Apr 2026",
+      "tone": "#B388FF",
+      "kind": {
+        "en": "Conference · Online",
+        "ar": "مؤتمر · أونلاين"
+      },
+      "title": {
+        "en": "Agentic AI Conference",
+        "ar": "مؤتمر الذكاء الاصطناعي الوكيل"
+      },
+      "place": {
+        "en": "Data Science Dojo · April 6–10, 2026",
+        "ar": "Data Science Dojo · ٦–١٠ أبريل ٢٠٢٦"
+      },
+      "desc": {
+        "en": "Five days of tutorials, panels and workshops on agentic AI systems — how autonomous agents are reshaping product engineering and the tooling around them.",
+        "ar": "خمس أيام من الدروس والجلسات والورش عن أنظمة الذكاء الاصطناعي الوكيلة — وإزاي الوكلاء المستقلين بيغيّروا هندسة المنتجات والأدوات حواليها."
+      },
+      "tags": [
+        "Agentic AI",
+        "LLM tooling"
+      ],
+      "link": "https://datasciencedojo.com/",
+      "cover": "agentic-ai.jpg",
+      "gallery": [
+        "agentic-ai.jpg"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "id": "esri-award",
+      "year": "2026",
+      "tone": "#E8B14C",
+      "kind": {
+        "en": "Award",
+        "ar": "جائزة"
+      },
+      "title": {
+        "en": "Esri Award for Excellence — SRD Platform",
+        "ar": "جائزة Esri للتميّز — منصة SRD"
+      },
+      "place": {
+        "en": "Esri MENA UC 2026 · Riyadh",
+        "ar": "مؤتمر Esri MENA ٢٠٢٦ · الرياض"
+      },
+      "image": "esri-award-stage.jpg",
+      "desc": {
+        "en": "The unified data platform I build the front-end for was honoured with the Esri Award for Excellence.",
+        "ar": "منصة البيانات الموحدة اللي ببني واجهتها حصلت على جائزة Esri للتميّز."
+      }
+    },
+    {
+      "id": "sda-recognition",
+      "year": "2025",
+      "tone": "#17D3A3",
+      "kind": {
+        "en": "Recognition",
+        "ar": "تكريم"
+      },
+      "title": {
+        "en": "Recognised by Sharqia Development Authority",
+        "ar": "تكريم من هيئة تطوير المنطقة الشرقية"
+      },
+      "place": {
+        "en": "Dammam, Saudi Arabia",
+        "ar": "الدمام، السعودية"
+      },
+      "image": "",
+      "desc": {
+        "en": "Honoured by the authority's leadership for contributions to its digital and geospatial products.",
+        "ar": "تكريم من قيادة الهيئة على المساهمة في منتجاتها الرقمية والجغرافية."
+      }
+    }
+  ],
+  "certificates": [
+    {
+      "id": "udemy-motion",
+      "issuer": "Udemy",
+      "year": "Jan 2026",
+      "tone": "#B388FF",
+      "title": {
+        "en": "Motion Design with Figma: Animations, Motion Graphics, UX/UI",
+        "ar": "تصميم الحركة بـ Figma: أنيميشن، موشن جرافيك، UX/UI"
+      },
+      "note": {
+        "en": "10 hours · Andrei Neagoie & Daniel Schifano",
+        "ar": "١٠ ساعات · Andrei Neagoie و Daniel Schifano"
+      },
+      "image": "cert-udemy.jpg",
+      "link": "https://ude.my/UC-1a5d6aa8-94a8-40ea-8b08-38ed215c57b0"
+    },
+    {
+      "id": "iti-mearn",
+      "issuer": "ITI — Information Technology Institute",
+      "year": "2021 — 2022",
+      "tone": "#E8B14C",
+      "title": {
+        "en": "MEARN-Stack Web Development Diploma",
+        "ar": "دبلومة تطوير الويب — MEARN Stack"
+      },
+      "note": {
+        "en": "9-month intensive diploma, Egypt",
+        "ar": "دبلومة مكثفة ٩ شهور، مصر"
+      },
+      "image": "",
+      "link": ""
+    },
+    {
+      "id": "google-pm",
+      "issuer": "Google · Coursera",
+      "year": "2024",
+      "tone": "#4CC9F0",
+      "title": {
+        "en": "Project Management Professional Certificate",
+        "ar": "شهادة إدارة المشاريع الاحترافية"
+      },
+      "note": {
+        "en": "Google scholarship",
+        "ar": "منحة من Google"
+      },
+      "image": "",
+      "link": ""
+    },
+    {
+      "id": "nti-web",
+      "issuer": "NTI — National Telecommunication Institute",
+      "year": "2020",
+      "tone": "#17D3A3",
+      "title": {
+        "en": "Web Development Track",
+        "ar": "مسار تطوير الويب"
+      },
+      "note": {
+        "en": "Cairo, Egypt",
+        "ar": "القاهرة، مصر"
+      },
+      "image": "",
+      "link": ""
+    }
+  ],
+  "assistant": {
+    "endpoint": ""
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" role="img" aria-label="2D Geo-Explorer — placeholder">
+  <defs>
+    <linearGradient id="bg-g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080d16"/><stop offset="1" stop-color="#050810"/>
+    </linearGradient>
+    <pattern id="grid-g2" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#17D3A3" stroke-opacity=".10" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="800" fill="url(#bg-g2)"/>
+  <rect width="1280" height="800" fill="url(#grid-g2)"/>
+  
+  <g stroke="#17D3A3" stroke-opacity=".30" fill="none">
+    <path d="M120 640 L300 470 L430 520 L560 360 L760 400 L980 250" stroke-width="2.5"/>
+    <path d="M120 700 L360 600 L520 620 L700 520 L900 545 L1160 430" stroke-width="1.5" stroke-opacity=".18"/>
+  </g>
+  <g fill="#17D3A3" fill-opacity=".55">
+    <circle cx="300" cy="470" r="6"/><circle cx="560" cy="360" r="6"/><circle cx="980" cy="250" r="6"/>
+  </g>
+  <rect x="900" y="110" width="330" height="470" rx="10" fill="#0b131f" fill-opacity=".9" stroke="#17D3A3" stroke-opacity=".22"/>
+  <g fill="#17D3A3" fill-opacity=".22">
+    <rect x="928" y="146" width="180" height="12" rx="6"/>
+    <rect x="928" y="182" width="250" height="9" rx="4"/>
+    <rect x="928" y="206" width="215" height="9" rx="4"/>
+    <rect x="928" y="250" width="270" height="9" rx="4"/>
+    <rect x="928" y="274" width="190" height="9" rx="4"/>
+  </g>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="17" fill="#17D3A3" fill-opacity=".85">
+    <text x="44" y="60" letter-spacing="3">2D GEO-EXPLORER</text>
+  </g>
+  <g font-family="ui-monospace,Menlo,monospace" font-size="13" fill="#8A94A6">
+    <text x="44" y="760" letter-spacing="2">PLACEHOLDER — REPLACE WITH REAL CAPTURE</text>
+  </g>
+  <rect x="10" y="10" width="1260" height="780" fill="none"
+        stroke="#17D3A3" stroke-opacity=".35" stroke-width="2" stroke-dasharray="14 10" rx="6"/>
+</svg>

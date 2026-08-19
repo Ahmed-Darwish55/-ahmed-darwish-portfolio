@@ -1,0 +1,454 @@
+{
+  "_readme": [
+    "UI COPY — every label, heading and button on the site, in both languages.",
+    "Bundled at build time AND fetched at runtime: edit on the server and refresh.",
+    "Every text field takes { en, ar }.",
+    "facts[] replaces the old stats[] — only verifiable claims, no invented metrics."
+  ],
+  "profile": {
+    "name": {
+      "en": "Ahmed Darwish",
+      "ar": "أحمد درويش"
+    },
+    "fullName": {
+      "en": "Ahmed Mohamed Darwish",
+      "ar": "أحمد محمد درويش"
+    },
+    "role": {
+      "en": "Frontend & GIS Developer",
+      "ar": "مطوّر واجهات أمامية ونظم معلومات جغرافية"
+    },
+    "email": "ahmed.m.darwish9@gmail.com",
+    "phoneSa": "+966 50 127 5214",
+    "phoneEg": "+20 101 177 3739",
+    "whatsapp": "https://wa.me/966501275214",
+    "github": "https://github.com/Ahmed5510-Mac",
+    "linkedin": "https://www.linkedin.com/in/ahmed-darwish55/",
+    "codepen": "https://codepen.io/ahmed5510-mac",
+    "cv": "Ahmed-Darwish-CV.pdf",
+    "positioning": {
+      "en": "I build digital products where maps, data and interfaces meet.",
+      "ar": "ببني منتجات رقمية عند تقاطع الخرائط والبيانات والواجهات."
+    }
+  },
+  "nav": [
+    {
+      "id": "hero",
+      "en": "Start",
+      "ar": "البداية"
+    },
+    {
+      "id": "journey",
+      "en": "Route",
+      "ar": "الرحلة"
+    },
+    {
+      "id": "origin",
+      "en": "Origin",
+      "ar": "الموطن"
+    },
+    {
+      "id": "station",
+      "en": "Dammam",
+      "ar": "الدمام"
+    },
+    {
+      "id": "award",
+      "en": "Award",
+      "ar": "الجائزة"
+    },
+    {
+      "id": "work",
+      "en": "Case studies",
+      "ar": "دراسات الحالة"
+    },
+    {
+      "id": "twin",
+      "en": "Digital Twin",
+      "ar": "التوأم الرقمي"
+    },
+    {
+      "id": "stack",
+      "en": "The Stack",
+      "ar": "الطبقات"
+    },
+    {
+      "id": "proof",
+      "en": "Recognition",
+      "ar": "التكريم"
+    },
+    {
+      "id": "contact",
+      "en": "Contact",
+      "ar": "تواصل"
+    }
+  ],
+  "ui": {
+    "loading": {
+      "en": "Assembling the world",
+      "ar": "بجمّع العالم"
+    },
+    "enter": {
+      "en": "Enter",
+      "ar": "ابدأ"
+    },
+    "scroll": {
+      "en": "Begin the route",
+      "ar": "ابدأ الرحلة"
+    },
+    "heroKicker": {
+      "en": "Frontend & GIS Developer",
+      "ar": "مطوّر واجهات أمامية و GIS"
+    },
+    "heroLine1": {
+      "en": "Where maps, data",
+      "ar": "حيث تلتقي الخرائط"
+    },
+    "heroLine2": {
+      "en": "and interfaces meet.",
+      "ar": "والبيانات والواجهات."
+    },
+    "heroBlurb": {
+      "en": "I design and build geospatial platforms for the Eastern Province of Saudi Arabia — 2D and 3D map experiences, urban data dashboards and the interfaces that make them usable. Angular, React, ArcGIS and Three.js. Based in Dammam, originally from Giza.",
+      "ar": "بصمّم وببني منصّات جغرافية للمنطقة الشرقية في السعودية — تجارب خرائط ثنائية وثلاثية الأبعاد، ولوحات بيانات عمرانية، والواجهات اللي بتخليها قابلة للاستخدام. أنجولار وريأكت و ArcGIS و Three.js. مقيم في الدمام، وأصلي من الجيزة."
+    },
+    "journeyTitle": {
+      "en": "The route",
+      "ar": "خط الرحلة"
+    },
+    "journeySub": {
+      "en": "Two cities, one continuous practice — from the west bank of the Nile to the Arabian Gulf.",
+      "ar": "مدينتان وممارسة واحدة متصلة — من غرب النيل إلى ساحل الخليج العربي."
+    },
+    "openStation": {
+      "en": "Zoom in",
+      "ar": "ادخل عليها"
+    },
+    "originTitle": {
+      "en": "Origin",
+      "ar": "الموطن"
+    },
+    "stationTitle": {
+      "en": "Current base",
+      "ar": "المقر الحالي"
+    },
+    "workTitle": {
+      "en": "Case studies",
+      "ar": "دراسات الحالة"
+    },
+    "workSub": {
+      "en": "Five geospatial platforms shipped for the Sharqia Development Authority, each a different kind of spatial problem.",
+      "ar": "خمس منصّات جغرافية سُلّمت لهيئة تطوير المنطقة الشرقية، كل واحدة نوع مختلف من المسائل المكانية."
+    },
+    "skillsTitle": {
+      "en": "The toolkit",
+      "ar": "أدوات الشغل"
+    },
+    "skillsSub": {
+      "en": "Six years of front-end, three stacks, one obsession with motion.",
+      "ar": "ست سنين فرونت إند، وتلات ستاكات، وهوس واحد بالحركة."
+    },
+    "confTitle": {
+      "en": "Conferences & stages",
+      "ar": "مؤتمرات ومنصّات"
+    },
+    "confSub": {
+      "en": "Rooms where the work was shown — and one where it won.",
+      "ar": "قاعات اتعرض فيها الشغل — وواحدة كسب فيها."
+    },
+    "certsTitle": {
+      "en": "Certificates & awards",
+      "ar": "شهادات وجوائز"
+    },
+    "certsSub": {
+      "en": "The paper trail: diplomas, courses and the recognitions in between.",
+      "ar": "الأوراق الرسمية: دبلومات وكورسات والتكريمات اللي بينهم."
+    },
+    "awardsLabel": {
+      "en": "Awards & recognition",
+      "ar": "جوائز وتكريم"
+    },
+    "viewPost": {
+      "en": "See the post",
+      "ar": "شوف البوست"
+    },
+    "viewCert": {
+      "en": "Verify",
+      "ar": "تحقّق"
+    },
+    "contactTitle": {
+      "en": "Let's build something",
+      "ar": "يلا نبني حاجة"
+    },
+    "contactSub": {
+      "en": "Open to frontend, GIS and creative-web roles — remote or on site in the Gulf.",
+      "ar": "متاح لفرص فرونت إند و GIS وويب إبداعي — عن بعد أو حضوري في الخليج."
+    },
+    "contactCta": {
+      "en": "Available for new work",
+      "ar": "متاح لشغل جديد"
+    },
+    "copyEmail": {
+      "en": "Copy",
+      "ar": "نسخ"
+    },
+    "copied": {
+      "en": "Copied",
+      "ar": "اتنسخ"
+    },
+    "basedIn": {
+      "en": "Based in Dammam, Saudi Arabia",
+      "ar": "مقيم في الدمام، السعودية"
+    },
+    "downloadCv": {
+      "en": "Download CV",
+      "ar": "حمّل السيرة الذاتية"
+    },
+    "emailMe": {
+      "en": "Email me",
+      "ar": "ابعتلي إيميل"
+    },
+    "rights": {
+      "en": "Built with Three.js & GSAP.",
+      "ar": "مبني بـ Three.js و GSAP."
+    },
+    "langBtn": {
+      "en": "ع",
+      "ar": "EN"
+    },
+    "sound": {
+      "en": "Sound",
+      "ar": "صوت"
+    },
+    "awardEyebrow": {
+      "en": "Recognition",
+      "ar": "تكريم"
+    },
+    "awardName": {
+      "en": "Esri Award for Excellence",
+      "ar": "جائزة Esri للتميّز"
+    },
+    "awardYear": {
+      "en": "2026",
+      "ar": "٢٠٢٦"
+    },
+    "awardTo": {
+      "en": "Awarded to",
+      "ar": "مُنحت لـ"
+    },
+    "awardProject": {
+      "en": "SRD — Unified Data Platform",
+      "ar": "منصة البيانات الموحدة SRD"
+    },
+    "awardRoleLabel": {
+      "en": "My role on the platform",
+      "ar": "دوري في المنصة"
+    },
+    "awardRole": {
+      "en": "Angular front-end developer & UI/UX designer — built the dynamic dashboards and interfaces that present unified urban indicators.",
+      "ar": "مطوّر واجهات أنجولار ومصمّم UI/UX — بنيت لوحات التحكم الديناميكية والواجهات اللي بتعرض المؤشرات العمرانية الموحدة."
+    },
+    "awardWhere": {
+      "en": "Presented at Esri MENA User Conference 2026 · Riyadh",
+      "ar": "مؤتمر Esri MENA للمستخدمين ٢٠٢٦ · الرياض"
+    },
+    "awardNote": {
+      "en": "The award recognises the platform. I build its front end.",
+      "ar": "الجائزة للمنصة. أنا اللي ببني واجهتها."
+    },
+    "caseRole": {
+      "en": "Role",
+      "ar": "الدور"
+    },
+    "caseContext": {
+      "en": "Context",
+      "ar": "السياق"
+    },
+    "caseDid": {
+      "en": "What I did",
+      "ar": "اللي عملته"
+    },
+    "caseTech": {
+      "en": "Technology",
+      "ar": "التقنيات"
+    },
+    "caseOutcome": {
+      "en": "Outcome",
+      "ar": "النتيجة"
+    },
+    "caseTeam": {
+      "en": "Team project",
+      "ar": "مشروع فريق"
+    },
+    "twinEyebrow": {
+      "en": "Immersive",
+      "ar": "تجربة غامرة"
+    },
+    "twinTitle": {
+      "en": "A city you can walk before it is built",
+      "ar": "مدينة تمشي فيها قبل ما تتبني"
+    },
+    "twinSub": {
+      "en": "A high-fidelity Digital Twin built by integrating the Esri platform with the Unity engine, presented in VR at the Regions & Cities Development Forum.",
+      "ar": "توأم رقمي عالي الدقة مبني بدمج منصة Esri مع محرك Unity، اتعرض بنظارة VR في منتدى تنمية المناطق والمدن."
+    },
+    "stackTitle": {
+      "en": "The stack",
+      "ar": "الطبقات"
+    },
+    "stackSub": {
+      "en": "Not five separate skills — five layers of one system. Every layer is evidenced by shipped work.",
+      "ar": "مش خمس مهارات منفصلة — خمس طبقات لنظام واحد. كل طبقة ورا كل واحدة شغل منشور."
+    },
+    "stackExplode": {
+      "en": "Separate layers",
+      "ar": "افصل الطبقات"
+    },
+    "stackCollapse": {
+      "en": "Merge layers",
+      "ar": "ادمج الطبقات"
+    },
+    "stackEvidence": {
+      "en": "Evidenced by",
+      "ar": "الدليل"
+    },
+    "proofTitle": {
+      "en": "Recognition & credentials",
+      "ar": "تكريم وشهادات"
+    },
+    "proofSub": {
+      "en": "Where the work was shown, and the training behind it.",
+      "ar": "فين اتعرض الشغل، والتدريب اللي وراه."
+    },
+    "confLabel": {
+      "en": "Conferences & stages",
+      "ar": "مؤتمرات ومنصّات"
+    },
+    "certsLabel": {
+      "en": "Certificates",
+      "ar": "شهادات"
+    },
+    "placeholderNote": {
+      "en": "Placeholder visual",
+      "ar": "صورة مؤقتة"
+    },
+    "ask": {
+      "open": {
+        "en": "Ask",
+        "ar": "اسأل"
+      },
+      "title": {
+        "en": "Ask about Ahmed",
+        "ar": "اسأل عن أحمد"
+      },
+      "intro": {
+        "en": "Ask anything about Ahmed's work. Answers come only from this site's data and his CV — nothing is invented.",
+        "ar": "اسأل أي شيء عن عمل أحمد. الإجابات مبنية فقط على بيانات هذا الموقع وسيرته الذاتية — لا شيء مُختلَق."
+      },
+      "placeholder": {
+        "en": "Ask anything about Ahmed…",
+        "ar": "اكتب سؤالك عن أحمد…"
+      },
+      "thinking": {
+        "en": "Looking through the data…",
+        "ar": "أبحث في البيانات…"
+      },
+      "jump": {
+        "en": "Open section",
+        "ar": "افتح القسم"
+      },
+      "sources": {
+        "en": "Sources",
+        "ar": "المصادر"
+      },
+      "suggestions": {
+        "en": [
+          "What has he shipped?",
+          "What is his stack?",
+          "Tell me about the Esri award",
+          "Where is he based?",
+          "How do I contact him?"
+        ],
+        "ar": [
+          "ما المشاريع اللي نفّذها؟",
+          "ما التقنيات اللي يستخدمها؟",
+          "احكِ لي عن جائزة Esri",
+          "أين مقره؟",
+          "كيف أتواصل معه؟"
+        ]
+      }
+    }
+  },
+  "stations": [
+    {
+      "id": "giza",
+      "section": "origin",
+      "lat": 29.9773,
+      "lon": 31.1325,
+      "color": "#E8B14C",
+      "city": {
+        "en": "Giza, Egypt",
+        "ar": "الجيزة، مصر"
+      },
+      "label": {
+        "en": "Origin",
+        "ar": "الموطن"
+      },
+      "years": "1997 — 2024",
+      "tagline": {
+        "en": "Where the code started. Computer science, then five years of shipping the web.",
+        "ar": "من هنا بدأ الكود. علوم حاسب، وبعدها خمس سنين شغل ويب حقيقي."
+      }
+    },
+    {
+      "id": "dammam",
+      "section": "station",
+      "lat": 26.4207,
+      "lon": 50.0888,
+      "color": "#17D3A3",
+      "city": {
+        "en": "Dammam, Saudi Arabia",
+        "ar": "الدمام، السعودية"
+      },
+      "label": {
+        "en": "Current base",
+        "ar": "المقر الحالي"
+      },
+      "years": "2022 — Present",
+      "tagline": {
+        "en": "Four years on the Gulf coast — engineering consulting at iSEC, then the digital map of the Eastern Province at Sharqia Development Authority.",
+        "ar": "أربع سنين على ساحل الخليج — استشارات هندسية في iSEC، وبعدها الخريطة الرقمية للمنطقة الشرقية في هيئة تطوير الشرقية."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "value": "2019",
+      "label": {
+        "en": "Building for the web since",
+        "ar": "ببني للويب من"
+      }
+    },
+    {
+      "value": "2",
+      "label": {
+        "en": "Countries",
+        "ar": "دولة"
+      }
+    },
+    {
+      "value": "5",
+      "label": {
+        "en": "SDA platforms shipped",
+        "ar": "منصات سُلّمت في SDA"
+      }
+    },
+    {
+      "value": "Esri",
+      "label": {
+        "en": "Award for Excellence, 2026",
+        "ar": "جائزة التميّز ٢٠٢٦"
+      }
+    }
+  ]
+}
