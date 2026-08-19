@@ -367,6 +367,7 @@ img {
 
 .section {
   position: relative;
+  z-index: 2; /* the road threads behind the copy, never over it */
   display: flex;
   align-items: center;
   padding: var(--s-9) var(--pad);
@@ -408,9 +409,11 @@ img {
    The plate is translucent and blurred rather than opaque, so the
    particle field keeps living behind every section — the blur is what
    stops it competing with the copy.                                  */
+/* No `isolation: isolate` here on purpose: the plate below must share
+   .main's stacking context so the route can be drawn on top of it while
+   still passing behind every section's copy. */
 .sheet {
   position: relative;
-  isolation: isolate;
 }
 
 .sheet::before {
@@ -1877,12 +1880,142 @@ button.proof__item:hover {
 body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 
 /* ==================================================================
+   10b · ROUTE — the survey line drawn down the page
+   ------------------------------------------------------------------
+   A meandering road on the leading edge: it draws itself as you
+   scroll and plants a marker at every section, so the page reads as
+   a route across a map. Purely decorative — never takes a click.
+   ================================================================== */
+/* The road spans the whole page. It has to out-rank .sheet, whose
+   frosted plate would otherwise paint straight over it, while the
+   sections themselves stay above the road — hence both get a layer. */
+.route-map {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* sized in real pixels by the component, so no stretching here */
+.route-map__svg {
+  display: block;
+  overflow: visible;
+}
+
+.route-map__ghost,
+.route-map__line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.route-map__ghost {
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1.6;
+  stroke-dasharray: 2 9;
+}
+
+.route-map__line {
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 6px rgba(34, 179, 214, 0.55));
+}
+
+/* the bright tip that runs ahead of the drawn road */
+.route-map__head {
+  fill: #ffffff;
+  opacity: 0;
+  filter: drop-shadow(0 0 9px rgba(34, 179, 214, 0.95));
+}
+
+/* --- the pin -------------------------------------------------------
+   Starts at zero size: it is planted only when the road's tip reaches
+   it, so it must not flash at full size on first paint. */
+.route-map__pin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transform: scale(0);
+  color: var(--cyan);
+}
+
+.route-map__glyph {
+  position: absolute;
+  /* the point of the pin is its anchor, so it stands on the road */
+  left: -11px;
+  top: -30px;
+  width: 22px;
+  height: 30px;
+  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.6));
+}
+
+.route-map__glyphBody {
+  fill: currentColor;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 1.1;
+}
+
+.route-map__glyphEye { fill: #04060c; }
+
+/* the water rings that ripple out where the pin lands */
+.route-map__ring {
+  position: absolute;
+  left: -13px;
+  top: -13px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+}
+
+/* one tone per leg of the journey, matching the globe */
+.route-map__pin:nth-child(-n + 3) { color: var(--gold); }
+.route-map__pin:nth-last-child(-n + 3) { color: var(--teal); }
+
+/* --- passing traffic ----------------------------------------------
+   A card is outlined only while the road's tip is level with it, so
+   the highlight travels down the page with the line and clears once
+   it has gone by — the same on the way back up.                     */
+.route__item,
+.card,
+.proof__item,
+.stack__layer,
+.case,
+.panel,
+.contact__card {
+  --lit: 0;
+  transition: box-shadow 0.45s var(--ease), border-color 0.45s var(--ease);
+}
+
+.is-onroute {
+  --lit: 1;
+  border-color: color-mix(in srgb, var(--road, var(--cyan)) 55%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--road, var(--cyan)) 22%, transparent),
+    0 0 30px -8px color-mix(in srgb, var(--road, var(--cyan)) 55%, transparent);
+}
+
+/* .case has no border of its own, so give the outline something to sit on */
+.case.is-onroute {
+  border-radius: var(--r-md);
+  outline: 1px solid color-mix(in srgb, var(--road, var(--cyan)) 45%, transparent);
+  outline-offset: 14px;
+}
+
+/* ==================================================================
    11 · RESPONSIVE
    ================================================================== */
 
 /* the edge rail only exists where there is room for it */
 @media (min-width: 1100px) {
   :root { --rail: 118px; }
+}
+
+/* the road crosses the full width, which needs room to read as a map */
+@media (max-width: 860px) {
+  .route-map { display: none; }
 }
 
 @media (max-width: 1099px) {

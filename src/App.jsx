@@ -8,6 +8,7 @@ import Loader from './components/Loader';
 import Cursor from './components/Cursor';
 import Lightbox from './components/Lightbox';
 import DataError from './components/DataError';
+import Route from './components/Route';
 import Ask from './components/Ask';
 import { Hero, Journey, Origin, Station, Contact } from './components/Sections';
 import { Award, Cases, Twin, Stack, Proof } from './components/Atlas';
@@ -117,12 +118,13 @@ export default function App() {
       <Nav lenis={lenis} />
       <Ask />
       <main className="main">
+        <Route />
         <Hero />
         <Journey />
         <Origin />
         <Station />
-        {/* One continuous survey sheet: the 3D field is absent behind it,
-            so dense reading happens on solid ground instead of a scrim. */}
+        {/* One continuous survey sheet: the field stays visible but blurred
+            behind it, so dense reading keeps the backdrop without fighting it. */}
         <div className="sheet">
           <Award />
           <Cases />

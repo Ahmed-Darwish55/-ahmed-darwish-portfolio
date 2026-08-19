@@ -277,7 +277,7 @@ export function Stack() {
   const UI = useUI();
   const layers = useStore((s) => s.site.stack) ?? [];
   const cases = useStore((s) => s.site.cases) ?? [];
-  const [exploded, setExploded] = useState(false);
+  const [exploded, setExploded] = useState(true);
   const ref = useRef();
 
   /* Titles for the evidence links, resolved from the case list. */
