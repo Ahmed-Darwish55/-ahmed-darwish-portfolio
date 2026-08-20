@@ -272,7 +272,8 @@ body[data-lang='ar'] {
   inset-inline-end: 0;
   top: 0;
   bottom: 0;
-  width: 26px;
+  /* wide enough that a blurred bloom still has body once it spreads */
+  width: 60px;
   pointer-events: none;
   background: transparent;
   transition: opacity var(--t-mid) var(--ease);
@@ -287,29 +288,36 @@ body[data-lang='ar'] {
   /* height, offset and background position are written every frame */
   will-change: transform;
 
-  /* across: a bright core at the edge, dying out inward */
+  /* Across: a solid core hugging the edge, then a long fall inward.
+     The core is held at full strength for the first fifth so the blur
+     below has something bright to spread — fading it immediately is
+     what left almost nothing on screen. */
   background-image: linear-gradient(
     270deg,
     var(--drop) 0%,
-    color-mix(in srgb, var(--drop) 62%, transparent) 26%,
-    color-mix(in srgb, var(--drop) 22%, transparent) 58%,
+    var(--drop) 18%,
+    color-mix(in srgb, var(--drop) 55%, transparent) 42%,
+    color-mix(in srgb, var(--drop) 18%, transparent) 72%,
     transparent 100%
   );
   background-repeat: no-repeat;
 
-  /* down: faded to nothing at both ends, so the light has no hard edge */
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+  /* down: faded at both ends, but only over the last tenth, so the
+     middle of the bloom keeps its full strength */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
 
-  filter: blur(5px);
+  /* enough to soften the edge, not enough to dissolve it */
+  filter: blur(3px);
 }
 
 [dir="rtl"] .dropbar__bead {
   background-image: linear-gradient(
     90deg,
     var(--drop) 0%,
-    color-mix(in srgb, var(--drop) 62%, transparent) 26%,
-    color-mix(in srgb, var(--drop) 22%, transparent) 58%,
+    var(--drop) 18%,
+    color-mix(in srgb, var(--drop) 55%, transparent) 42%,
+    color-mix(in srgb, var(--drop) 18%, transparent) 72%,
     transparent 100%
   );
 }
