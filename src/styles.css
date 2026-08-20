@@ -244,12 +244,19 @@ body[data-lang='ar'] {
 }
 
 /* --- the scrollbar -------------------------------------------------
-   A droplet running down a hidden track: the trough is invisible, and
-   the thumb is a bead of water — rounded hard at the foot, tapering
-   as it climbs, and lit blue at the bottom where a drop is heaviest.
+   A droplet running down a hidden track: the trough is invisible and
+   the thumb is a bead of water, clear at its head and deepening to
+   blue at its foot, where a falling drop is heaviest.
 
-   Firefox only takes a width and two colours, so it gets a thin blue
-   thumb on no track; WebKit gets the full shape below.              */
+   The gradient is painted on the *thumb* but sized to the viewport
+   rather than to the thumb's own box. A thumb is only as tall as the
+   handle it draws, so a gradient scaled to it compresses into a few
+   pixels and reads as one flat colour — which is exactly what it did.
+   Fixing the background to the viewport height gives the ramp the room
+   it needs, and the bead then samples the part of it that it covers.
+
+   Firefox takes only a width and two colours, so it gets a thin blue
+   thumb on no track; WebKit gets the shape below.                    */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--drop) transparent;
@@ -269,32 +276,46 @@ body[data-lang='ar'] {
 ::-webkit-scrollbar-thumb {
   /* heavy and round at the foot, drawn to a point at the head —
      a falling drop, not a capsule */
-  border-radius: 40% 40% 50% 50% / 24% 24% 50% 50%;
-  /* clear at the top, deepening to blue at the bottom */
-  background: linear-gradient(
+  border-radius: 40% 40% 50% 50% / 22% 22% 50% 50%;
+
+  /* clear at the top, solid at the bottom, measured against the screen */
+  background-image: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--drop) 18%, transparent),
-    color-mix(in srgb, var(--drop) 62%, transparent) 46%,
+    color-mix(in srgb, var(--drop) 6%, transparent),
+    color-mix(in srgb, var(--drop) 38%, transparent) 38%,
+    color-mix(in srgb, var(--drop) 78%, transparent) 72%,
     var(--drop)
   );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100vw 100vh;
+
   /* the meniscus: a bright edge where the light catches the water */
   box-shadow:
-    inset 0 -2px 4px -1px color-mix(in srgb, #ffffff 55%, transparent),
-    inset 0 1px 2px color-mix(in srgb, #ffffff 22%, transparent);
+    inset 0 -2px 4px -1px color-mix(in srgb, #ffffff 45%, transparent),
+    inset 0 1px 2px color-mix(in srgb, #ffffff 18%, transparent);
+
   /* keeps the bead clear of the very edge so its shape reads */
   border: 2px solid transparent;
   background-clip: padding-box;
-  transition: background var(--t-fast);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
+  background-image: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--drop) 30%, transparent),
-    color-mix(in srgb, var(--drop) 76%, transparent) 46%,
+    color-mix(in srgb, var(--drop) 14%, transparent),
+    color-mix(in srgb, var(--drop) 52%, transparent) 38%,
+    color-mix(in srgb, var(--drop) 88%, transparent) 72%,
     var(--drop-lit)
   );
-  background-clip: padding-box;
+}
+
+/* Touch screens overlay their own transient scrollbar and ignore these
+   rules; a 9px gutter would only steal width from the page. Coarse
+   pointers get the native one back. */
+@media (pointer: coarse) {
+  * { scrollbar-width: auto; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
 }
 
 body.is-locked {
@@ -2873,6 +2894,21 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
     bottom: clamp(0.8rem, 3vh, 1.6rem);
     transform: none;
     animation: none;
+  }
+
+  /* The sheet rises from the same edge the robot stands on and its
+     height is content-driven, so no fixed offset reliably clears it.
+     The robot moves up under the nav bar instead, where it stays
+     visible and tappable whatever the sheet grows to. */
+  .evestage.is-open {
+    bottom: auto;
+    top: 68px;
+  }
+
+  /* the open nav menu fills that same band, so the robot yields to it */
+  body:has(.nav.is-open) .evestage.is-open {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .evebeam { display: none; }
