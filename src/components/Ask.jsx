@@ -3,6 +3,7 @@ import { useStore, setState, raw, t, useUI } from '../store';
 import { buildKB } from '../ai/kb';
 import { index } from '../ai/search';
 import { answerLocal, answerRemote } from '../ai/answer';
+import Eve from './Eve';
 
 /* ==================================================================
    ASK — an assistant that only knows what the site knows
@@ -12,14 +13,6 @@ import { answerLocal, answerRemote } from '../ai/answer';
    rebuild — the same contract the rest of the page already follows.
    ================================================================== */
 
-const IconSpark = () => (
-  <svg viewBox="0 0 24 24" aria-hidden>
-    <path
-      fill="currentColor"
-      d="M12 2.6l1.7 4.9 4.9 1.7-4.9 1.7L12 15.8l-1.7-4.9-4.9-1.7 4.9-1.7L12 2.6ZM18.4 14l.9 2.5 2.5.9-2.5.9-.9 2.5-.9-2.5-2.5-.9 2.5-.9.9-2.5ZM5.3 13.2l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"
-    />
-  </svg>
-);
 
 const IconSend = () => (
   <svg viewBox="0 0 24 24" aria-hidden>
@@ -116,16 +109,15 @@ export default function Ask() {
 
   return (
     <>
-      <button
-        className={`ask-fab ${open ? 'is-open' : ''}`}
-        onClick={() => setState({ ask: !open })}
-        aria-label={t(AI.open, lang) || 'Ask about Ahmed'}
-      >
-        <span className="ask-fab__icon">{open ? <IconClose /> : <IconSpark />}</span>
-        <span className="ask-fab__label">{t(AI.open, lang) || 'Ask'}</span>
-      </button>
+      {/* The assistant is a robot that keeps station on the page; its
+          chest lamp is the control, and the panel is projected from it. */}
+      <Eve
+        open={open}
+        onToggle={() => setState({ ask: !open })}
+        label={t(AI.open, lang) || 'Ask'}
+      />
 
-      <aside className={`ask ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+      <aside className={`ask ask--proj ${open ? 'is-open' : ''}`} aria-hidden={!open}>
         <header className="ask__head">
           <span className="survey survey--plain">{t(AI.title, lang) || 'Ask about Ahmed'}</span>
           <button className="ask__x" onClick={() => setState({ ask: false })} aria-label="Close">

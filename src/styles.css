@@ -2575,45 +2575,179 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
    ------------------------------------------------------------------
    Violet is its only colour, so it never reads as part of the work.
    ================================================================== */
-.ask-fab {
+/* --- the robot ------------------------------------------------------
+   It keeps station in the corner while the page moves under it. The
+   chest lamp is the control: pressing it fires the projector beam the
+   answer panel is thrown along.                                      */
+.eve {
   position: fixed;
   z-index: 70;
-  inset-inline-end: clamp(1rem, 2vw, 1.9rem);
-  bottom: clamp(1rem, 3vh, 2rem);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-2);
-  padding: 11px 18px;
-  border-radius: var(--r-pill);
-  border: 1px solid color-mix(in srgb, var(--violet) 42%, transparent);
-  background: linear-gradient(160deg, rgba(179, 136, 255, 0.18), rgba(10, 14, 24, 0.9));
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  backdrop-filter: blur(18px) saturate(160%);
-  color: var(--ink);
+  inset-inline-end: clamp(0.6rem, 2vw, 1.6rem);
+  bottom: clamp(0.8rem, 3vh, 1.8rem);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  /* the beam is thrown up and inward, so give it somewhere to land */
+  transform-style: preserve-3d;
+}
+
+.eve__rig {
+  display: block;
+  width: clamp(58px, 7vw, 78px);
+  /* the idle bob and the scroll lean are written here by GSAP */
+  will-change: transform;
+}
+
+.eve__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.55));
+}
+
+/* the eyes blink by scaling on their own centre */
+.eve__eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* arms drift out of phase with the body so it reads as hovering */
+.eve__arm {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: eveArm 3.1s var(--ease-io) infinite;
+}
+
+.eve__arm--r { animation-delay: -1.4s; }
+
+@keyframes eveArm {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(4deg); }
+}
+
+.eve__lamp { transform-box: fill-box; transform-origin: center; }
+
+/* the lamp flares when the projection is live */
+.eve.is-open .eve__lamp {
+  animation: eveFlare 1.1s var(--ease-io) infinite alternate;
+}
+
+@keyframes eveFlare {
+  from { opacity: 0.75; }
+  to { opacity: 1; }
+}
+
+.eve__label {
   font-family: var(--mono);
   font-size: var(--fs-micro);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  box-shadow: 0 18px 44px -22px var(--shadow-ink);
-  transition: transform var(--t-mid) var(--ease), border-color var(--t-mid), background var(--t-mid);
+  color: var(--muted);
+  transition: color var(--t-fast);
 }
 
-.ask-fab:hover {
-  transform: translateY(-3px);
-  border-color: var(--violet);
+.eve:hover .eve__label { color: var(--teal); }
+.eve:hover .eve__rig { filter: brightness(1.06); }
+
+/* --- the projector beam ---------------------------------------------
+   A cone thrown from the chest lamp toward where the panel opens. It
+   is purely decorative, so it never intercepts a pointer.            */
+.eve__beam {
+  position: absolute;
+  /* springs from the lamp, which sits about two-thirds up the body */
+  bottom: 46%;
+  inset-inline-end: 46%;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  transform-origin: bottom right;
+  background: linear-gradient(
+    -22deg,
+    color-mix(in srgb, var(--teal) 34%, transparent),
+    color-mix(in srgb, var(--cyan) 12%, transparent) 42%,
+    transparent 78%
+  );
+  clip-path: polygon(100% 100%, 0% 22%, 34% 0%);
+  opacity: 0;
+  transition: opacity var(--t-mid) var(--ease), transform var(--t-slow) var(--ease);
 }
 
-.ask-fab.is-open { opacity: 0; pointer-events: none; }
-
-.ask-fab__icon {
-  display: grid;
-  place-items: center;
-  width: 17px;
-  height: 17px;
-  color: var(--violet);
+.eve.is-open .eve__beam {
+  opacity: 1;
+  /* opens out to reach the panel */
+  transform: scale(14, 11);
 }
 
-.ask-fab__icon svg { width: 17px; height: 17px; }
+[dir='rtl'] .eve__beam {
+  transform-origin: bottom left;
+  clip-path: polygon(0% 100%, 100% 22%, 66% 0%);
+}
+
+/* --- the panel, thrown from the lamp ---------------------------------
+   It is a projection, so it grows out of the robot rather than sliding
+   in from the edge: scaled up from the corner it is cast from.       */
+.ask--proj {
+  transform-origin: bottom right;
+  transform: translateY(14px) scale(0.82);
+  opacity: 0;
+  /* a hologram is lit from within, so it keeps a coloured rim */
+  border-inline-start: 1px solid color-mix(in srgb, var(--teal) 34%, transparent);
+  box-shadow:
+    -40px 0 90px -40px var(--shadow-ink),
+    inset 1px 0 0 color-mix(in srgb, var(--teal) 16%, transparent);
+  transition:
+    transform var(--t-slow) var(--ease),
+    opacity var(--t-mid) var(--ease),
+    visibility var(--t-slow);
+}
+
+[dir='rtl'] .ask--proj { transform-origin: bottom left; }
+
+.ask--proj.is-open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* the scanlines that say "projected", not "printed" */
+.ask--proj::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--teal) 7%, transparent) 0 1px,
+    transparent 1px 4px
+  );
+  opacity: 0.5;
+}
+
+@media (max-width: 560px) {
+  .eve__label { display: none; }
+  .eve__rig { width: 54px; }
+}
+
+/* the beam and the bob are the whole effect; drop them on request */
+@media (prefers-reduced-motion: reduce) {
+  .eve__arm,
+  .eve.is-open .eve__lamp { animation: none; }
+
+  .eve__beam { display: none; }
+
+  .ask--proj,
+  .ask--proj.is-open {
+    transform: none;
+    transition: opacity var(--t-fast) var(--ease), visibility var(--t-fast);
+  }
+
+  .ask--proj::before { display: none; }
+}
+
 
 /* the panel: a drawer on the trailing edge, a sheet on phones */
 .ask {
@@ -2820,8 +2954,6 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 
 @media (max-width: 560px) {
   .ask { width: 100%; }
-  .ask-fab__label { display: none; }
-  .ask-fab { padding: 13px; }
 }
 
 /* the rail and the launcher must not stack on top of each other */
