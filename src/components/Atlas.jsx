@@ -35,9 +35,9 @@ function Survey({ children, plain }) {
   return <span className={`survey ${plain ? 'survey--plain' : ''}`}>{children}</span>;
 }
 
-function openLightbox(images, caption, index = 0) {
+function openLightbox(images, caption, index = 0, isPrivate = false) {
   const list = images.map(img).filter(Boolean);
-  if (list.length) setState({ lightbox: { images: list, caption, index } });
+  if (list.length) setState({ lightbox: { images: list, caption, index, private: isPrivate } });
 }
 
 /** Scrolls to a section by id, through Lenis when it is available. */
@@ -361,12 +361,16 @@ export function Twin() {
               </div>
             </div>
 
-            <div className="twin__gallery">
+            {/* `privateShots` holds a set back: the photos still load and
+                still open, but blurred, until the flag is cleared. */}
+            <div className={`twin__gallery ${twin.privateShots ? 'is-private' : ''}`}>
               {shots.map((src, i) => (
                 <button
                   key={src}
                   className="twin__shot"
-                  onClick={() => openLightbox(twin.gallery, t(twin.title, lang), i)}
+                  onClick={() =>
+                    openLightbox(twin.gallery, t(twin.title, lang), i, twin.privateShots)
+                  }
                   aria-label={`${t(twin.title, lang)} — ${i + 1}/${shots.length}`}
                 >
                   <img src={src} alt="" loading="lazy" decoding="async" />
@@ -557,6 +561,7 @@ export function Proof() {
             link: c.link,
             gallery: c.gallery?.length ? c.gallery : c.cover ? [c.cover] : null,
             caption: t(c.title, lang),
+            isPrivate: !!c.privateShots,
           })),
         },
         {
@@ -621,7 +626,7 @@ export function Proof() {
     return () => ctx.revert();
   }, [lang, confs.length, certs.length]);
 
-  const Item = ({ year, name, note, link, gallery, caption }) => {
+  const Item = ({ year, name, note, link, gallery, caption, isPrivate }) => {
     const inner = (
       <>
         <span className="proof__year">{year}</span>
@@ -631,7 +636,10 @@ export function Proof() {
     );
     if (gallery?.length) {
       return (
-        <button className="proof__item" onClick={() => openLightbox(gallery, caption)}>
+        <button
+          className="proof__item"
+          onClick={() => openLightbox(gallery, caption, 0, isPrivate)}
+        >
           {inner}
         </button>
       );

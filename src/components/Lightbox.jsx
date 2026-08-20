@@ -81,7 +81,12 @@ export default function Lightbox() {
         </>
       )}
 
-      <figure className="lb__fig" ref={figure} onClick={(e) => e.stopPropagation()}>
+      {/* `private` holds a set back: it still opens, but blurred */}
+      <figure
+        className={`lb__fig ${box.private ? 'is-private' : ''}`}
+        ref={figure}
+        onClick={(e) => e.stopPropagation()}
+      >
         <img src={src} alt={box.caption ?? ''} />
         {(box.caption || box.images.length > 1) && (
           <figcaption>

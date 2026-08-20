@@ -279,47 +279,32 @@ body[data-lang='ar'] {
   transition: opacity var(--t-mid) var(--ease);
 }
 
-/* A bloom of light bleeding in from the edge rather than a bead on a
-   track: brightest hard against the side, falling away inward, and
-   feathered top and bottom so it has no ends to notice. */
+/* A band of light bleeding in from the edge rather than a bead on a
+   track: solid against the side and falling away inward. */
 .dropbar__bead {
   display: block;
   width: 100%;
-  /* height, offset and background position are written every frame */
+  /* height and offset are written every frame */
   will-change: transform;
 
-  /* Across: a solid core hugging the edge, then a long fall inward.
-     The core is held at full strength for the first fifth so the blur
-     below has something bright to spread — fading it immediately is
-     what left almost nothing on screen. */
-  background-image: linear-gradient(
-    270deg,
-    var(--drop) 0%,
-    var(--drop) 18%,
-    color-mix(in srgb, var(--drop) 55%, transparent) 42%,
-    color-mix(in srgb, var(--drop) 18%, transparent) 72%,
-    transparent 100%
-  );
-  background-repeat: no-repeat;
+  /* One flat colour. Every gradient attempt here read as a slab anyway,
+     because the glow is far taller than it is wide — so this states
+     plainly what it was going to look like regardless. */
+  background: var(--drop);
 
-  /* down: faded at both ends, but only over the last tenth, so the
-     middle of the bloom keeps its full strength */
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+  /* The only softening is sideways, off the edge of the screen. */
+  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+  mask-image: linear-gradient(270deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
 
   /* enough to soften the edge, not enough to dissolve it */
   filter: blur(3px);
 }
 
+/* the ramp runs down whichever way the page reads; only the sideways
+   falloff swaps edges */
 [dir="rtl"] .dropbar__bead {
-  background-image: linear-gradient(
-    90deg,
-    var(--drop) 0%,
-    var(--drop) 18%,
-    color-mix(in srgb, var(--drop) 55%, transparent) 42%,
-    color-mix(in srgb, var(--drop) 18%, transparent) 72%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
 }
 
 /* touch devices bring their own transient bar; the rail is hidden in JS
@@ -1760,6 +1745,33 @@ button.card:hover {
 
 .twin__shot:first-child { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
 .twin__shot img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- held back ------------------------------------------------------
+   A set flagged `privateShots` in the data still loads and still opens,
+   but blurred: these show identifiable people at an event and are not
+   for showing yet. Clearing the flag in site.json reveals them.
+   The blur is heavy enough that no face survives it at any zoom.    */
+.twin__gallery.is-private img,
+.lb__fig.is-private img {
+  filter: blur(18px) saturate(0.85);
+  /* the blur samples past the edges, so scale up to avoid clear borders */
+  transform: scale(1.12);
+}
+
+/* the scaled-up image has to be clipped back to the frame */
+.twin__gallery.is-private .twin__shot { position: relative; overflow: hidden; }
+.lb__fig.is-private img { overflow: hidden; }
+
+/* says plainly that this is deliberate, not a broken image. Only on the
+   thumbnails: in the viewer the figure also holds the caption, which an
+   overlay across it would dim. */
+.twin__gallery.is-private .twin__shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(160deg, transparent 40%, color-mix(in srgb, var(--bg) 55%, transparent));
+}
 
 
 /* ==================================================================

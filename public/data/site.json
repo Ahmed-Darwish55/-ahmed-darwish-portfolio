@@ -590,7 +590,8 @@
       "forum-vr.jpg",
       "forum-vr-2.jpg",
       "forum-group.jpg"
-    ]
+    ],
+    "privateShots": true
   },
   "stack": [
     {
@@ -783,7 +784,8 @@
         "forum-group.jpg",
         "forum-group-2.jpg",
         "forum-vr-2.jpg"
-      ]
+      ],
+      "privateShots": true
     },
     {
       "id": "agentic-ai-2026",

@@ -46,12 +46,12 @@ export default function Scrollbar() {
 
       const p = Math.min(1, Math.max(0, window.scrollY / max));
 
-      /* Sized in proportion to how much of the page fits on screen, as a
-         native thumb is, but longer and with a generous floor: a bloom
-         needs length to read as light rather than as a dash. */
+      /* Sized in proportion to how much of the page fits on screen, the
+         same contract a native thumb honours, with a floor so it never
+         shrinks to a dash and a cap so it never fills the rail. */
       const railH = t.clientHeight;
       const ratio = window.innerHeight / doc.scrollHeight;
-      const glowH = Math.max(150, Math.round(railH * ratio * 2.2));
+      const glowH = Math.min(railH * 0.5, Math.max(120, Math.round(railH * ratio * 2.4)));
       g.style.height = `${glowH}px`;
 
       g.style.transform = `translateY(${Math.round((railH - glowH) * p)}px)`;
