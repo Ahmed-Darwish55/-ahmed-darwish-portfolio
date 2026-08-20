@@ -101,10 +101,17 @@ export default function Route() {
 
     if (!stops.length) return;
 
-    /* The road ends at its last stop — it is a route between places, so
-       running it on to the foot of the page left a tail past the final
-       pin with nowhere to go. */
-    const height = stops[stops.length - 1].y;
+    /* The road stops just short of its final pin rather than running on
+       to the foot of the page: it arrives at the last place and ends
+       there. The gap is what keeps the line from striking through the
+       pin — the pin is the destination, not something to drive over. */
+    const ARRIVE = 34;
+    const last = stops[stops.length - 1];
+
+    /* The SVG box has to stay taller than the road so the pin, which is
+       drawn upward from its anchor and rippled around, is not clipped by
+       the edge of the wrapper. */
+    const height = last.y + 90;
 
     /* A smooth road: each leg leaves a stop heading straight down, then
        curves into the next one, so the joins never kink. */
@@ -114,16 +121,18 @@ export default function Route() {
     let d = `M ${startX} ${start}`;
     for (let i = 0; i < stops.length; i++) {
       const b = stops[i];
+      // pull the very last leg up short so it never crosses the final pin
+      const endY = i === stops.length - 1 ? b.y - ARRIVE : b.y;
       if (i === 0) {
-        const gap = b.y - start;
-        d += ` C ${startX} ${start + gap * 0.42}, ${b.x} ${b.y - gap * 0.42}, ${b.x} ${b.y}`;
+        const gap = endY - start;
+        d += ` C ${startX} ${start + gap * 0.42}, ${b.x} ${endY - gap * 0.42}, ${b.x} ${endY}`;
         continue;
       }
       const a = stops[i - 1];
-      const gap = b.y - a.y;
-      d += ` C ${a.x} ${a.y + gap * 0.42}, ${b.x} ${b.y - gap * 0.42}, ${b.x} ${b.y}`;
+      const gap = endY - a.y;
+      d += ` C ${a.x} ${a.y + gap * 0.42}, ${b.x} ${endY - gap * 0.42}, ${b.x} ${endY}`;
     }
-    setGeom({ d, stops, height, width, start });
+    setGeom({ d, stops, height, width, start, arrive: ARRIVE });
   }, [lang]);
 
   useLayoutEffect(() => {
@@ -164,10 +173,27 @@ export default function Route() {
          head next to whatever is being read. */
       const wrapTop = () => wrap.current.getBoundingClientRect().top + window.scrollY;
 
+      const endY = path.getPointAtLength(len).y;
+
       const sample = () => {
         // walk the path to find the length at a given y — the path bends, so
         // length and height are not proportional
-        const targetY = window.scrollY + window.innerHeight * 0.62 - wrapTop();
+        let targetY = window.scrollY + window.innerHeight * 0.62 - wrapTop();
+
+        /* The reader's line sits 38% of a viewport above the fold, so at
+           maximum scroll it still stops short of the page bottom — on a
+           short page the last pin fell below it and never planted. As the
+           scroll runs out, walk the line down to the foot of the window
+           so the road arrives properly instead of popping at the end. */
+        const remaining =
+          document.documentElement.scrollHeight - window.innerHeight - window.scrollY;
+        const closing = Math.min(1, Math.max(0, 1 - remaining / (window.innerHeight * 0.5)));
+        targetY += window.innerHeight * 0.38 * closing;
+
+        /* Past the end of the road, return the full length exactly. The
+           search below converges from underneath and would otherwise stop
+           a little short forever, so the road never quite completed. */
+        if (targetY >= endY) return len;
         let lo = 0;
         let hi = len;
         for (let i = 0; i < 12; i++) {
@@ -195,10 +221,14 @@ export default function Route() {
          them — a scroll trigger fired too early and showed the pin before
          the line got there. */
       const pins = geom.stops
-        .map((stop) => {
+        .map((stop, i) => {
           const el = wrap.current?.querySelector(`[data-stop="${stop.id}"]`);
           if (!el) return null;
-          return { el, y: stop.y, rings: el.querySelectorAll('.route-map__ring'), planted: false };
+          /* The road deliberately stops short of the final pin, so the tip
+             never reaches that pin's own y. Trigger it off the end of the
+             road instead, or the last marker would never plant at all. */
+          const trigger = i === geom.stops.length - 1 ? stop.y - geom.arrive : stop.y;
+          return { el, y: trigger, rings: el.querySelectorAll('.route-map__ring'), planted: false };
         })
         .filter(Boolean);
 
@@ -258,8 +288,19 @@ export default function Route() {
          below is a short catch-up, not a delay. */
       const tick = () => {
         const target = sample();
-        if (Math.abs(target - v) < 0.4) return;
-        v += (target - v) * 0.22;
+        const gap = target - v;
+        if (Math.abs(gap) < 0.4) {
+          /* Snap and run one final apply rather than returning early:
+             easing only ever approaches the target, so the last fraction
+             of a pixel was never covered — which left the final pin,
+             whose trigger sits at the very end of the road, unplanted. */
+          if (v !== target) {
+            v = target;
+            apply();
+          }
+          return;
+        }
+        v += gap * 0.22;
         apply();
       };
 
