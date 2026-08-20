@@ -87,7 +87,7 @@ export default function Route() {
            section's first card instead, so the pin always sits in the
            clear band under the heading. */
         const first = el.querySelector(
-          '.route__item, .card, .proof__item, .stack__layer, .case, .panel, .contact__card'
+          '.route__item, .card, .proof__item, .wnode, .case, .panel, .contact__card'
         );
         let y = r.top + docTop + Math.min(r.height * 0.42, 320);
         if (first) {
@@ -206,7 +206,7 @@ export default function Route() {
 
       /* Every card the road can light up, with its page position cached
          so the per-frame pass is a number comparison, not a layout read. */
-      const CARD_SEL = '.route__item, .card, .proof__item, .stack__layer, .case, .panel, .contact__card';
+      const CARD_SEL = '.route__item, .card, .proof__item, .wnode, .case, .panel, .contact__card';
       let cards = [];
       const indexCards = () => {
         const top = wrapTop();

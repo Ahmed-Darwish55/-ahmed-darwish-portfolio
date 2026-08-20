@@ -303,14 +303,6 @@
       "en": "Not five separate skills — five layers of one system. Every layer is evidenced by shipped work.",
       "ar": "مش خمس مهارات منفصلة — خمس طبقات لنظام واحد. كل طبقة ورا كل واحدة شغل منشور."
     },
-    "stackExplode": {
-      "en": "Separate layers",
-      "ar": "افصل الطبقات"
-    },
-    "stackCollapse": {
-      "en": "Merge layers",
-      "ar": "ادمج الطبقات"
-    },
     "stackEvidence": {
       "en": "Evidenced by",
       "ar": "الدليل"
@@ -380,6 +372,42 @@
           "كيف أتواصل معه؟"
         ]
       }
+    },
+    "workStatPlatforms": {
+      "en": "Platforms shipped",
+      "ar": "منصّة مُسلَّمة"
+    },
+    "workStatOrgs": {
+      "en": "Client organisations",
+      "ar": "جهة عميلة"
+    },
+    "workStatTech": {
+      "en": "Technologies used",
+      "ar": "تقنية مستخدمة"
+    },
+    "workEnvLabel": {
+      "en": "By environment",
+      "ar": "حسب البيئة"
+    },
+    "caseSubject": {
+      "en": "Subject",
+      "ar": "الموضوع"
+    },
+    "caseClient": {
+      "en": "Client",
+      "ar": "الجهة"
+    },
+    "casePeriod": {
+      "en": "Period",
+      "ar": "الفترة"
+    },
+    "caseTeamLabel": {
+      "en": "Delivery",
+      "ar": "التنفيذ"
+    },
+    "proofCoreLabel": {
+      "en": "Total",
+      "ar": "الإجمالي"
     }
   },
   "stations": [
