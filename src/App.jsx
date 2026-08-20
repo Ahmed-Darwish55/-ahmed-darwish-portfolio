@@ -10,6 +10,7 @@ import Lightbox from './components/Lightbox';
 import DataError from './components/DataError';
 import Route from './components/Route';
 import Ask from './components/Ask';
+import Scrollbar from './components/Scrollbar';
 import { Hero, Journey, Origin, Station, Contact } from './components/Sections';
 import { Award, Cases, Twin, Stack, Proof } from './components/Atlas';
 import { raw, setState } from './store';
@@ -109,6 +110,7 @@ export default function App() {
   return (
     <>
       <Cursor />
+      <Scrollbar />
       <Lightbox />
       <DataError />
       <Loader />
