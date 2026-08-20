@@ -268,42 +268,50 @@ body[data-lang='ar'] {
 .dropbar {
   position: fixed;
   z-index: 60;
-  inset-inline-end: 4px;
-  top: clamp(12px, 3vh, 26px);
-  bottom: clamp(12px, 3vh, 26px);
-  width: 8px;
+  /* flush to the edge: the glow bleeds off the side of the screen */
+  inset-inline-end: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
   pointer-events: none;
-  /* no trough: only the bead is ever drawn */
   background: transparent;
   transition: opacity var(--t-mid) var(--ease);
 }
 
+/* A bloom of light bleeding in from the edge rather than a bead on a
+   track: brightest hard against the side, falling away inward, and
+   feathered top and bottom so it has no ends to notice. */
 .dropbar__bead {
   display: block;
   width: 100%;
   /* height, offset and background position are written every frame */
   will-change: transform;
 
-  /* Clear at the head, solid at the foot. The ramp is the height of the
-     whole rail, so this is the part of it the bead currently covers. */
+  /* across: a bright core at the edge, dying out inward */
   background-image: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--drop) 4%, transparent),
-    color-mix(in srgb, var(--drop) 26%, transparent) 30%,
-    color-mix(in srgb, var(--drop) 62%, transparent) 62%,
-    color-mix(in srgb, var(--drop) 92%, transparent) 84%,
-    var(--drop)
+    270deg,
+    var(--drop) 0%,
+    color-mix(in srgb, var(--drop) 62%, transparent) 26%,
+    color-mix(in srgb, var(--drop) 22%, transparent) 58%,
+    transparent 100%
   );
   background-repeat: no-repeat;
 
-  /* heavy and round at the foot, drawn in at the head — a falling drop */
-  border-radius: 46% 46% 50% 50% / 16% 16% 50% 50%;
+  /* down: faded to nothing at both ends, so the light has no hard edge */
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
 
-  /* the meniscus: light catching the water at its heaviest edge */
-  box-shadow:
-    inset 0 -3px 5px -2px color-mix(in srgb, #ffffff 50%, transparent),
-    inset 0 1px 2px color-mix(in srgb, #ffffff 16%, transparent),
-    0 2px 10px -3px color-mix(in srgb, var(--drop) 45%, transparent);
+  filter: blur(5px);
+}
+
+[dir="rtl"] .dropbar__bead {
+  background-image: linear-gradient(
+    90deg,
+    var(--drop) 0%,
+    color-mix(in srgb, var(--drop) 62%, transparent) 26%,
+    color-mix(in srgb, var(--drop) 22%, transparent) 58%,
+    transparent 100%
+  );
 }
 
 /* touch devices bring their own transient bar; the rail is hidden in JS
