@@ -134,6 +134,8 @@
   --solid-2: #070a12;
   --solid-card: rgba(7, 11, 19, 0.94); /* a card with the blur switched off */
   --accent-shift: #ffffff;             /* which way a filled accent moves on hover */
+  --drop: #3fb9e8;                     /* the scrollbar bead */
+  --drop-lit: #6fd4f5;
   --on-accent: #04060c;                /* ink that sits on a filled accent */
   --grain-opacity: 0.03;
   --vignette-edge: rgba(2, 3, 7, 0.88); /* how the page closes at its edges */
@@ -194,6 +196,8 @@
   --solid-2: #f7f9fc;
   --solid-card: rgba(255, 255, 255, 0.97);
   --accent-shift: #000000;
+  --drop: #1f7fa8;
+  --drop-lit: #17698c;
   --on-accent: #ffffff;
   --grain-opacity: 0.016;
   --vignette-edge: rgba(13, 18, 32, 0.1);
@@ -237,6 +241,60 @@ body {
 
 body[data-lang='ar'] {
   font-family: var(--font-ar);
+}
+
+/* --- the scrollbar -------------------------------------------------
+   A droplet running down a hidden track: the trough is invisible, and
+   the thumb is a bead of water — rounded hard at the foot, tapering
+   as it climbs, and lit blue at the bottom where a drop is heaviest.
+
+   Firefox only takes a width and two colours, so it gets a thin blue
+   thumb on no track; WebKit gets the full shape below.              */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--drop) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+/* no trough at all, so only the bead is ever visible */
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  /* heavy and round at the foot, drawn to a point at the head —
+     a falling drop, not a capsule */
+  border-radius: 40% 40% 50% 50% / 24% 24% 50% 50%;
+  /* clear at the top, deepening to blue at the bottom */
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--drop) 18%, transparent),
+    color-mix(in srgb, var(--drop) 62%, transparent) 46%,
+    var(--drop)
+  );
+  /* the meniscus: a bright edge where the light catches the water */
+  box-shadow:
+    inset 0 -2px 4px -1px color-mix(in srgb, #ffffff 55%, transparent),
+    inset 0 1px 2px color-mix(in srgb, #ffffff 22%, transparent);
+  /* keeps the bead clear of the very edge so its shape reads */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background var(--t-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--drop) 30%, transparent),
+    color-mix(in srgb, var(--drop) 76%, transparent) 46%,
+    var(--drop-lit)
+  );
+  background-clip: padding-box;
 }
 
 body.is-locked {
