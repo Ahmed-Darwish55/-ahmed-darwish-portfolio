@@ -85,9 +85,6 @@ export default function Eve({ open, onToggle, label }) {
       aria-label={label}
       aria-expanded={open}
     >
-      {/* the beam the answer panel is projected along */}
-      <span className="eve__beam" aria-hidden />
-
       <span className="eve__rig" ref={root}>
         <svg className="eve__svg" viewBox="0 0 120 150" aria-hidden>
           <defs>

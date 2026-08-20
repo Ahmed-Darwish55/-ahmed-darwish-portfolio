@@ -2575,15 +2575,36 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
    ------------------------------------------------------------------
    Violet is its only colour, so it never reads as part of the work.
    ================================================================== */
-/* --- the robot ------------------------------------------------------
-   It keeps station in the corner while the page moves under it. The
-   chest lamp is the control: pressing it fires the projector beam the
-   answer panel is thrown along.                                      */
-.eve {
+/* --- the stage ------------------------------------------------------
+   The robot, its beam and the dialog share one fixed box on the
+   trailing edge, halfway down the viewport. Keeping them together is
+   what lets the dialog hang off the projection instead of the window.
+   The stage itself takes no pointer events, so the page behind it stays
+   clickable; only the robot and the open dialog take them back.      */
+.evestage {
   position: fixed;
   z-index: 70;
-  inset-inline-end: clamp(0.6rem, 2vw, 1.6rem);
-  bottom: clamp(0.8rem, 3vh, 1.8rem);
+  /* clear of the section rail, which is pinned to the same middle-right
+     — --rail is 0 until the media query that turns the rail on */
+  inset-inline-end: calc(var(--rail) + clamp(0.75rem, 2vw, 1.6rem));
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  /* the whole rig drifts, so the dialog breathes with the robot */
+  animation: eveDrift 7s var(--ease-io) infinite;
+}
+
+@keyframes eveDrift {
+  0%, 100% { transform: translateY(calc(-50% - 5px)); }
+  50% { transform: translateY(calc(-50% + 5px)); }
+}
+
+/* --- the robot ------------------------------------------------------
+   Its chest lamp is the control: pressing it fires the projector cone
+   that carries the dialog.                                           */
+.eve {
+  position: relative;
+  z-index: 2;
   display: grid;
   justify-items: center;
   gap: 4px;
@@ -2591,13 +2612,12 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   background: none;
   border: 0;
   cursor: pointer;
-  /* the beam is thrown up and inward, so give it somewhere to land */
-  transform-style: preserve-3d;
+  pointer-events: auto;
 }
 
 .eve__rig {
   display: block;
-  width: clamp(58px, 7vw, 78px);
+  width: clamp(58px, 6.5vw, 76px);
   /* the idle bob and the scroll lean are written here by GSAP */
   will-change: transform;
 }
@@ -2631,7 +2651,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 
 .eve__lamp { transform-box: fill-box; transform-origin: center; }
 
-/* the lamp flares when the projection is live */
+/* the lamp flares while the projection is live */
 .eve.is-open .eve__lamp {
   animation: eveFlare 1.1s var(--ease-io) infinite alternate;
 }
@@ -2647,69 +2667,124 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  transition: color var(--t-fast);
+  transition: color var(--t-fast), opacity var(--t-fast);
 }
 
 .eve:hover .eve__label { color: var(--teal); }
 .eve:hover .eve__rig { filter: brightness(1.06); }
 
-/* --- the projector beam ---------------------------------------------
-   A cone thrown from the chest lamp toward where the panel opens. It
-   is purely decorative, so it never intercepts a pointer.            */
-.eve__beam {
+/* the label is redundant once the dialog it opens is on screen */
+.evestage.is-open .eve__label { opacity: 0; }
+
+/* --- the projector cone ---------------------------------------------
+   A wedge springing from the chest lamp and widening toward the
+   dialog, so the panel reads as being carried on the light. It is
+   decoration and never takes a pointer.                             */
+.evebeam {
   position: absolute;
-  /* springs from the lamp, which sits about two-thirds up the body */
-  bottom: 46%;
-  inset-inline-end: 46%;
-  width: 26px;
-  height: 26px;
+  z-index: 1;
+  /* anchored on the lamp: centre of the robot, a little above middle */
+  top: 50%;
+  inset-inline-end: 30px;
+  width: clamp(300px, 30vw, 440px);
+  height: clamp(330px, 42vh, 460px);
+  transform-origin: right center;
   pointer-events: none;
-  transform-origin: bottom right;
+
+  /* the cone: narrow at the lamp, open at the panel */
+  clip-path: polygon(100% 50%, 0% 0%, 0% 100%);
   background: linear-gradient(
-    -22deg,
-    color-mix(in srgb, var(--teal) 34%, transparent),
-    color-mix(in srgb, var(--cyan) 12%, transparent) 42%,
-    transparent 78%
+    -90deg,
+    color-mix(in srgb, var(--teal) 26%, transparent),
+    color-mix(in srgb, var(--cyan) 14%, transparent) 45%,
+    color-mix(in srgb, var(--cyan) 5%, transparent) 78%,
+    transparent
   );
-  clip-path: polygon(100% 100%, 0% 22%, 34% 0%);
+
   opacity: 0;
-  transition: opacity var(--t-mid) var(--ease), transform var(--t-slow) var(--ease);
+  transform: translateY(-50%) scaleX(0.04);
+  transition: opacity var(--t-mid) var(--ease), transform var(--t-slow) var(--ease-io);
 }
 
-.eve.is-open .eve__beam {
+[dir='rtl'] .evebeam {
+  transform-origin: left center;
+  clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--teal) 26%, transparent),
+    color-mix(in srgb, var(--cyan) 14%, transparent) 45%,
+    color-mix(in srgb, var(--cyan) 5%, transparent) 78%,
+    transparent
+  );
+}
+
+.evestage.is-open .evebeam {
   opacity: 1;
-  /* opens out to reach the panel */
-  transform: scale(14, 11);
+  transform: translateY(-50%) scaleX(1);
 }
 
-[dir='rtl'] .eve__beam {
-  transform-origin: bottom left;
-  clip-path: polygon(0% 100%, 100% 22%, 66% 0%);
+/* the flicker of a real projector, once it has opened */
+.evestage.is-open .evebeam::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  clip-path: inherit;
+  background: inherit;
+  mix-blend-mode: screen;
+  animation: eveFlicker 3.4s var(--ease-io) infinite;
 }
 
-/* --- the panel, thrown from the lamp ---------------------------------
-   It is a projection, so it grows out of the robot rather than sliding
-   in from the edge: scaled up from the corner it is cast from.       */
+@keyframes eveFlicker {
+  0%, 100% { opacity: 0.14; }
+  38% { opacity: 0.3; }
+  62% { opacity: 0.1; }
+}
+
+/* --- the dialog, carried on the beam ---------------------------------
+   Not a drawer any more: a floating panel that grows out of the lamp,
+   sized to sit inside the cone.                                      */
 .ask--proj {
-  transform-origin: bottom right;
-  transform: translateY(14px) scale(0.82);
-  opacity: 0;
-  /* a hologram is lit from within, so it keeps a coloured rim */
-  border-inline-start: 1px solid color-mix(in srgb, var(--teal) 34%, transparent);
+  position: absolute;
+  inset: auto;
+  top: 50%;
+  /* stands off the robot far enough for the cone to be read */
+  inset-inline-end: clamp(96px, 11vw, 150px);
+  z-index: 3;
+
+  width: min(384px, calc(100vw - 7rem));
+  max-height: min(66vh, 560px);
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-md);
+  border: 1px solid color-mix(in srgb, var(--teal) 34%, transparent);
+  background: var(--solid-card);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  backdrop-filter: blur(26px) saturate(150%);
   box-shadow:
-    -40px 0 90px -40px var(--shadow-ink),
-    inset 1px 0 0 color-mix(in srgb, var(--teal) 16%, transparent);
+    0 0 46px -14px color-mix(in srgb, var(--teal) 42%, transparent),
+    0 40px 80px -34px var(--shadow-ink);
+
+  /* projected from the lamp: it opens outward from that edge */
+  transform-origin: right center;
+  transform: translateY(-50%) scale(0.72);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   transition:
-    transform var(--t-slow) var(--ease),
+    transform var(--t-slow) var(--ease-io),
     opacity var(--t-mid) var(--ease),
     visibility var(--t-slow);
 }
 
-[dir='rtl'] .ask--proj { transform-origin: bottom left; }
+[dir='rtl'] .ask--proj { transform-origin: left center; }
 
 .ask--proj.is-open {
-  transform: translateY(0) scale(1);
+  transform: translateY(-50%) scale(1);
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* the scanlines that say "projected", not "printed" */
@@ -2717,14 +2792,47 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
+  border-radius: inherit;
   background: repeating-linear-gradient(
     180deg,
-    color-mix(in srgb, var(--teal) 7%, transparent) 0 1px,
+    color-mix(in srgb, var(--teal) 8%, transparent) 0 1px,
     transparent 1px 4px
   );
-  opacity: 0.5;
+  opacity: 0.55;
+}
+
+/* the panel's own chrome has to sit above those scanlines */
+.ask--proj > * { position: relative; z-index: 1; }
+
+/* --- narrow screens --------------------------------------------------
+   There is no room beside the robot for a cone and a panel, so the
+   dialog becomes a sheet and the beam is dropped.                   */
+@media (max-width: 900px) {
+  .evestage {
+    top: auto;
+    bottom: clamp(0.8rem, 3vh, 1.6rem);
+    transform: none;
+    animation: none;
+  }
+
+  .evebeam { display: none; }
+
+  .ask--proj,
+  .ask--proj.is-open {
+    position: fixed;
+    inset-inline: 0;
+    inset-block: auto 0;
+    top: auto;
+    width: 100%;
+    max-height: 82vh;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    transform-origin: bottom center;
+  }
+
+  .ask--proj { transform: translateY(100%); }
+  .ask--proj.is-open { transform: translateY(0); }
 }
 
 @media (max-width: 560px) {
@@ -2732,44 +2840,32 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
   .eve__rig { width: 54px; }
 }
 
-/* the beam and the bob are the whole effect; drop them on request */
+/* the drift and the beam are the whole effect; drop them on request */
 @media (prefers-reduced-motion: reduce) {
-  .eve__arm,
-  .eve.is-open .eve__lamp { animation: none; }
+  .evestage { animation: none; }
 
-  .eve__beam { display: none; }
+  .eve__arm,
+  .eve.is-open .eve__lamp,
+  .evestage.is-open .evebeam::after { animation: none; }
+
+  .evebeam { display: none; }
+
+  .ask--proj { transform: translateY(-50%) scale(1); }
 
   .ask--proj,
   .ask--proj.is-open {
-    transform: none;
     transition: opacity var(--t-fast) var(--ease), visibility var(--t-fast);
   }
 
   .ask--proj::before { display: none; }
 }
-
-
-/* the panel: a drawer on the trailing edge, a sheet on phones */
+/* The panel's shell — position, size and reveal — is set by .ask--proj
+   further up, which projects it from the robot. Only the things that
+   are true wherever it sits belong here. */
 .ask {
-  position: fixed;
-  z-index: 75;
-  inset-block: 0;
-  inset-inline-end: 0;
-  width: min(440px, 100%);
   display: flex;
   flex-direction: column;
-  background: var(--solid-card);
-  -webkit-backdrop-filter: blur(26px) saturate(150%);
-  backdrop-filter: blur(26px) saturate(150%);
-  border-inline-start: 1px solid var(--rule-2);
-  box-shadow: -40px 0 90px -40px var(--shadow-ink);
-  transform: translateX(100%);
-  visibility: hidden;
-  transition: transform var(--t-slow) var(--ease), visibility var(--t-slow);
 }
-
-[dir='rtl'] .ask { transform: translateX(-100%); }
-.ask.is-open { transform: none; visibility: visible; }
 
 .ask__head {
   display: flex;
@@ -2952,11 +3048,7 @@ body[data-lang='ar'] .loader__bar span { transform-origin: right center; }
 .ask__form button svg { width: 19px; height: 19px; }
 [dir='rtl'] .ask__form button svg { transform: scaleX(-1); }
 
-@media (max-width: 560px) {
-  .ask { width: 100%; }
-}
-
-/* the rail and the launcher must not stack on top of each other */
+/* the rail and the robot must not stack on top of each other */
 @media (min-width: 1100px) {
   .nav__links { margin-top: -28px; }
 }

@@ -108,9 +108,17 @@ export default function Ask() {
   const suggestions = t(AI.suggestions, lang) ?? [];
 
   return (
-    <>
+    /* One stage holds the robot, its beam and the dialog, so the three
+       share a coordinate space: the panel hangs off the same drift that
+       carries the robot instead of being pinned to the viewport. */
+    <div className={`evestage ${open ? 'is-open' : ''}`}>
+      {/* The cone of light the dialog is carried on. It belongs to the
+          stage rather than the button so it can widen from the lamp all
+          the way out to the panel. */}
+      <span className="evebeam" aria-hidden />
+
       {/* The assistant is a robot that keeps station on the page; its
-          chest lamp is the control, and the panel is projected from it. */}
+          chest lamp is the control, and the dialog is projected from it. */}
       <Eve
         open={open}
         onToggle={() => setState({ ask: !open })}
@@ -217,6 +225,6 @@ export default function Ask() {
           </button>
         </form>
       </aside>
-    </>
+    </div>
   );
 }
