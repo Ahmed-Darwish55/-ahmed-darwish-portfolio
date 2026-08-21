@@ -371,25 +371,42 @@ export default function Route() {
           stroke="url(#routeGrad)"
           clipPath="url(#routeReveal)"
         />
-        {/* The surveyor walking the route, carrying the flag. Drawn as a
-            group so the whole figure can be moved with one transform,
-            and scaled small: the road is the subject, not the walker. */}
+        {/* An explorer walking the route: pack on the back, staff in hand,
+            flag flying from it. Drawn as a group so the whole figure moves
+            with one transform, and built from solid shapes rather than
+            hairlines — at this size a stroked stick figure dissolves. */}
         <g className="route-map__head" ref={headRef}>
-          <g className="route-map__walker">
-            {/* the pole and its pennant, leaning forward with the march */}
-            <path className="route-map__pole" d="M0 -13 L0 5" />
-            <path className="route-map__flag" d="M0.9 -12.4 L9.2 -9.6 L0.9 -6.8 Z" />
+          {/* the ground shadow it walks over, so it stands on the road */}
+          <ellipse className="route-map__shadow" cx="-1" cy="11" rx="7" ry="1.8" />
 
-            {/* head */}
-            <circle className="route-map__body" cx="-2.6" cy="-9.4" r="2.5" />
-            {/* torso */}
-            <path className="route-map__limb" d="M-2.6 -7 L-3 -1.4" />
-            {/* the arm that holds the pole */}
-            <path className="route-map__limb" d="M-2.8 -5.6 L0 -4.2" />
-            {/* legs, animated in CSS to swing as it walks */}
+          <g className="route-map__walker">
+            {/* the staff, planted forward as it strides */}
+            <path className="route-map__pole" d="M4 -22 L2 10" />
+            {/* the pennant streaming off the top of the staff */}
+            <path
+              className="route-map__flag"
+              d="M4.6 -21.4 C9 -19.6, 13 -22.2, 16.6 -19.8 C15 -17, 15.4 -15, 16.6 -12.8 C13 -15.2, 9 -12.6, 4.2 -14.4 Z"
+            />
+
+            {/* the pack, riding high on the back */}
+            <path className="route-map__pack" d="M-9.4 -12.6 C-12 -12, -12.4 -4.6, -9.6 -3.4 L-5.4 -4 L-5.6 -12 Z" />
+            {/* its bedroll */}
+            <rect className="route-map__bedroll" x="-12.4" y="-6.2" width="4.4" height="2.6" rx="1.3" />
+
+            {/* head, with a brimmed hat against the sun */}
+            <circle className="route-map__body" cx="-2.4" cy="-16.4" r="3.4" />
+            <path className="route-map__hat" d="M-8.6 -18.2 C-6 -21.8, 1.2 -21.8, 3.8 -18.2 C0.6 -19.4, -5.4 -19.4, -8.6 -18.2 Z" />
+
+            {/* torso: a solid body, not a line */}
+            <path className="route-map__torso" d="M-5.8 -13 C-7 -9.4, -6.8 -5.4, -5.6 -2.2 L-0.2 -2.2 C1 -5.6, 1 -9.6, -0.4 -13 Z" />
+
+            {/* the arm reaching to the staff */}
+            <path className="route-map__arm" d="M-1.2 -11.4 C1 -10.4, 2.6 -8.4, 3 -6" />
+
+            {/* legs, swung in opposition by CSS */}
             <g className="route-map__legs">
-              <path className="route-map__limb route-map__leg--a" d="M-3 -1.4 L-5.2 4.4" />
-              <path className="route-map__limb route-map__leg--b" d="M-3 -1.4 L-0.6 4.4" />
+              <path className="route-map__leg route-map__leg--a" d="M-4.6 -2.6 C-6.2 2, -7.4 6.4, -8 10.2" />
+              <path className="route-map__leg route-map__leg--b" d="M-1.6 -2.6 C-0.6 2, 0.8 6.4, 2 10.2" />
             </g>
           </g>
         </g>
