@@ -259,8 +259,16 @@ export default function Route() {
         // reveal everything above the tip
         if (clip) clip.setAttribute('height', String(Math.max(0, p.y)));
         if (headRef.current) {
-          headRef.current.setAttribute('cx', p.x);
-          headRef.current.setAttribute('cy', p.y);
+          /* The walker is a group, so it moves by transform rather than by
+             cx/cy. It also leans into the slope of the road it is on: a
+             figure walking a curve should not stay bolt upright. */
+          const ahead = path.getPointAtLength(Math.min(len, v + 6));
+          const behind = path.getPointAtLength(Math.max(0, v - 6));
+          const tilt = Math.atan2(ahead.x - behind.x, ahead.y - behind.y) * (180 / Math.PI);
+          headRef.current.setAttribute(
+            'transform',
+            `translate(${p.x} ${p.y}) rotate(${Math.max(-26, Math.min(26, -tilt))})`
+          );
           headRef.current.style.opacity = v > 4 && v < len - 4 ? '1' : '0';
         }
         /* A card is lit only while the tip is level with it, so the outline
@@ -363,8 +371,28 @@ export default function Route() {
           stroke="url(#routeGrad)"
           clipPath="url(#routeReveal)"
         />
-        {/* the surveyor's head, riding the tip */}
-        <circle className="route-map__head" ref={headRef} r="5" cx="0" cy="0" />
+        {/* The surveyor walking the route, carrying the flag. Drawn as a
+            group so the whole figure can be moved with one transform,
+            and scaled small: the road is the subject, not the walker. */}
+        <g className="route-map__head" ref={headRef}>
+          <g className="route-map__walker">
+            {/* the pole and its pennant, leaning forward with the march */}
+            <path className="route-map__pole" d="M0 -13 L0 5" />
+            <path className="route-map__flag" d="M0.9 -12.4 L9.2 -9.6 L0.9 -6.8 Z" />
+
+            {/* head */}
+            <circle className="route-map__body" cx="-2.6" cy="-9.4" r="2.5" />
+            {/* torso */}
+            <path className="route-map__limb" d="M-2.6 -7 L-3 -1.4" />
+            {/* the arm that holds the pole */}
+            <path className="route-map__limb" d="M-2.8 -5.6 L0 -4.2" />
+            {/* legs, animated in CSS to swing as it walks */}
+            <g className="route-map__legs">
+              <path className="route-map__limb route-map__leg--a" d="M-3 -1.4 L-5.2 4.4" />
+              <path className="route-map__limb route-map__leg--b" d="M-3 -1.4 L-0.6 4.4" />
+            </g>
+          </g>
+        </g>
       </svg>
 
       {geom.stops.map((s) => (
@@ -377,13 +405,18 @@ export default function Route() {
           <span className="route-map__ring" />
           <span className="route-map__ring" />
           <span className="route-map__ring" />
-          {/* a real map pin, not a dot */}
-          <svg className="route-map__glyph" viewBox="0 0 24 32" aria-hidden>
+          {/* A flag planted at the stop, not a pin dropped on it: the
+              route is walked, so each place gets a flag claimed on
+              arrival. The pole stands on the road; the pennant flies. */}
+          <svg className="route-map__glyph" viewBox="0 0 26 34" aria-hidden>
+            <path className="route-map__flagPole" d="M6 33 L6 3" />
+            {/* the base it is planted in */}
+            <ellipse className="route-map__flagFoot" cx="6" cy="32.4" rx="4.6" ry="1.5" />
+            {/* a pennant with a waving edge, animated in CSS */}
             <path
-              d="M12 1.6c-5.1 0-9.2 4.1-9.2 9.2 0 6.7 8.2 19 9.2 19s9.2-12.3 9.2-19c0-5.1-4.1-9.2-9.2-9.2z"
-              className="route-map__glyphBody"
+              className="route-map__flagCloth"
+              d="M7 4 C13 6, 17 2.6, 22.5 5.2 C21 8.4, 21 11.2, 22.5 14.4 C17 11.8, 13 15.2, 7 13.2 Z"
             />
-            <circle cx="12" cy="10.6" r="3.4" className="route-map__glyphEye" />
           </svg>
         </span>
       ))}
