@@ -46,12 +46,12 @@ export default function Scrollbar() {
 
       const p = Math.min(1, Math.max(0, window.scrollY / max));
 
-      /* Sized in proportion to how much of the page fits on screen, the
-         same contract a native thumb honours, with a floor so it never
-         shrinks to a dash and a cap so it never fills the rail. */
+      /* Sized in proportion to how much of the page fits on screen — the
+         same contract a native thumb honours — with a floor so it stays
+         grabbable on a long page and a cap so the trough still shows. */
       const railH = t.clientHeight;
       const ratio = window.innerHeight / doc.scrollHeight;
-      const glowH = Math.min(railH * 0.5, Math.max(120, Math.round(railH * ratio * 2.4)));
+      const glowH = Math.min(railH * 0.6, Math.max(48, Math.round(railH * ratio)));
       g.style.height = `${glowH}px`;
 
       g.style.transform = `translateY(${Math.round((railH - glowH) * p)}px)`;

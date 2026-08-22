@@ -265,46 +265,34 @@ body[data-lang='ar'] {
   height: 0;
 }
 
+/* The rail: a narrow gutter inset from the edge, the width a scrollbar
+   is actually expected to be. The 60px band this replaced read as a
+   floating slab, not as a bar, because nothing that wide is a
+   scrollbar however it is coloured. */
 .dropbar {
   position: fixed;
   z-index: 60;
-  /* flush to the edge: the glow bleeds off the side of the screen */
-  inset-inline-end: 0;
-  top: 0;
-  bottom: 0;
-  /* wide enough that a blurred bloom still has body once it spreads */
-  width: 60px;
+  inset-inline-end: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 5px;
   pointer-events: none;
-  background: transparent;
+  /* the faintest trough, so the bar has somewhere to run */
+  background: color-mix(in srgb, var(--drop) 9%, transparent);
+  border-radius: var(--r-pill);
   transition: opacity var(--t-mid) var(--ease);
 }
 
-/* A band of light bleeding in from the edge rather than a bead on a
-   track: solid against the side and falling away inward. */
+/* The handle: a solid capsule with a soft halo, so it reads as lit
+   rather than painted on. */
 .dropbar__bead {
   display: block;
   width: 100%;
   /* height and offset are written every frame */
   will-change: transform;
-
-  /* One flat colour. Every gradient attempt here read as a slab anyway,
-     because the glow is far taller than it is wide — so this states
-     plainly what it was going to look like regardless. */
   background: var(--drop);
-
-  /* The only softening is sideways, off the edge of the screen. */
-  -webkit-mask-image: linear-gradient(270deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
-  mask-image: linear-gradient(270deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
-
-  /* enough to soften the edge, not enough to dissolve it */
-  filter: blur(3px);
-}
-
-/* the ramp runs down whichever way the page reads; only the sideways
-   falloff swaps edges */
-[dir="rtl"] .dropbar__bead {
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 20%, rgba(0, 0, 0, 0.45) 50%, transparent 100%);
+  border-radius: var(--r-pill);
+  box-shadow: 0 0 10px -1px color-mix(in srgb, var(--drop) 75%, transparent);
 }
 
 /* touch devices bring their own transient bar; the rail is hidden in JS
